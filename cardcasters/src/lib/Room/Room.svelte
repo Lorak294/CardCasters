@@ -38,7 +38,7 @@
     <!-- Answers -->
     <div class="answers-area section-container">
         <!-- <AnswersSection/> -->
-        <h1 class="header">Answers ({$answers.length}/{roomState.MAX_PLAYERS})</h1>
+        <h1 class="header">Answers ({$answers.length}/{$players.length})</h1>
         <AnswersSection/>
     </div>
     <!-- Player cards -->

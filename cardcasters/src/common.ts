@@ -4,8 +4,12 @@ export enum CardType {
 }
 
 export enum PlayerState {
-	ChoosingCard,
-	Ready,
-	WaitingForAnsers,
-	ChoosingAnswer
+	Waiting,
+	Choosing,
+	Finished
+}
+
+export enum PlayerRole {
+	Chooser,
+	Answerer
 }

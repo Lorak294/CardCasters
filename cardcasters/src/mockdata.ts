@@ -1,46 +1,53 @@
-import { PlayerState, CardType } from './common';
+import { PlayerState, CardType, PlayerRole } from './common';
 
 export let mockPlayers: Player[] = [
 	{
 		id: 1,
 		name: 'Player 1',
-		state: PlayerState.ChoosingAnswer,
+		state: PlayerState.Waiting,
+		role: PlayerRole.Answerer,
 		score: 13
 	},
 	{
 		id: 2,
 		name: 'Player 2',
-		state: PlayerState.ChoosingCard,
+		state: PlayerState.Waiting,
+		role: PlayerRole.Answerer,
 		score: 3
 	},
 	{
 		id: 3,
 		name: 'Player 3',
-		state: PlayerState.ChoosingCard,
+		state: PlayerState.Waiting,
+		role: PlayerRole.Answerer,
 		score: 32
 	},
 	{
 		id: 4,
 		name: 'Player 4',
-		state: PlayerState.Ready,
+		state: PlayerState.Waiting,
+		role: PlayerRole.Answerer,
 		score: 2
 	},
 	{
 		id: 5,
 		name: 'Player 5',
-		state: PlayerState.ChoosingCard,
+		state: PlayerState.Waiting,
+		role: PlayerRole.Answerer,
 		score: 12
 	},
 	{
 		id: 6,
 		name: 'Player 6',
-		state: PlayerState.ChoosingCard,
+		state: PlayerState.Choosing,
+		role: PlayerRole.Answerer,
 		score: 10
 	},
 	{
 		id: 7,
 		name: 'Player 7',
-		state: PlayerState.ChoosingCard,
+		state: PlayerState.Choosing,
+		role: PlayerRole.Answerer,
 		score: 7
 	}
 ];
@@ -101,27 +108,51 @@ export let mockAnswerCards: Card[] = [
 export let mockAnswers: Answer[] = [
 	{
 		submiter: mockPlayers[0],
-		card: mockAnswerCards[0]
+		card: {
+			id: 10,
+			text: 'answer of player 0',
+			type: CardType.Answer
+		}
 	},
 	{
 		submiter: mockPlayers[1],
-		card: mockAnswerCards[1]
+		card: {
+			id: 11,
+			text: 'answer of player 1',
+			type: CardType.Answer
+		}
 	},
 	{
 		submiter: mockPlayers[2],
-		card: mockAnswerCards[2]
+		card: {
+			id: 12,
+			text: 'answer of player 2',
+			type: CardType.Answer
+		}
 	},
 	{
 		submiter: mockPlayers[3],
-		card: mockAnswerCards[3]
+		card: {
+			id: 13,
+			text: 'answer of player 3',
+			type: CardType.Answer
+		}
 	},
 	{
 		submiter: mockPlayers[4],
-		card: mockAnswerCards[4]
+		card: {
+			id: 14,
+			text: 'answer of player 4',
+			type: CardType.Answer
+		}
 	},
 	{
 		submiter: mockPlayers[5],
-		card: mockAnswerCards[5]
+		card: {
+			id: 15,
+			text: 'answer of player 5',
+			type: CardType.Answer
+		}
 	}
 ];
 

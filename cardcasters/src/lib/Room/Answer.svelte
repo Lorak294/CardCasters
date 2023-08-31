@@ -1,12 +1,24 @@
 <script lang="ts">
   import AnswerCard from "./AnswerCard.svelte";
+  import { roomState } from "../../roomStore";
   export let answer : Answer;
 
-</script>
+  let selectedAnswer = roomState.selectedAnswer;
 
+  function handleSelection(event: any) {
+    roomState.selectAnswer(answer);
+  }
+
+</script>
 <div class="container">
-    <p class="owner-name">{answer.submiter.name}</p>
-    <AnswerCard card={answer.card}/>
+    <p class="owner-name">
+      {#if !roomState.canSeeAnswerSubmiter(answer)}
+         ???
+      {:else}
+        {answer.submiter.name}
+      {/if}
+    </p>
+    <AnswerCard hidden={!roomState.canSeeAnswer(answer)} selected={$selectedAnswer?.card.id === answer.card.id} card={answer.card} on:item-selected={handleSelection}/>
 </div>
 
 <style>
@@ -16,8 +28,8 @@
     width: 100%;
     height: 100%;
     align-items: center;
+    position: relative;
   }
-
   .owner-name{
     padding: 10px;
   }

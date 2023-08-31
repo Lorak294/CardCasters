@@ -1,6 +1,6 @@
 <script lang="ts">
-    import AnswerCard from "./AnswerCard.svelte";
     import { roomState } from "../../roomStore";
+	import OwnCard from "./OwnCard.svelte";
 
     export let windowSize: number;
     let ownCards = roomState.ownCardsStore;
@@ -20,7 +20,7 @@
     <button class="btn" disabled={ startIdx === 0 } on:click={prev_handler}>P</button>
     <div class="contents">
         {#each $ownCards.slice(startIdx,startIdx+windowSize) as card, i}
-                <AnswerCard {card}/>
+                <OwnCard {card}/>
         {/each}
     </div>
     <button class="btn" disabled={ startIdx + windowSize >= $ownCards.length} on:click={next_handler}>N</button>

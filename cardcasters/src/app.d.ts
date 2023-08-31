@@ -22,6 +22,7 @@ interface Player {
 	name: string;
 	score: number;
 	state: PlayerState;
+	role: PlayerRole;
 }
 
 interface Answer {

@@ -1,14 +1,27 @@
 <script lang="ts">
+	import { PlayerState } from "../../common";
+
 
     export let player: Player;
     let avatarimg = "images/avatar.jpg";
+
+    function getStateString (state: PlayerState){
+        switch (state) {
+            case PlayerState.Choosing:
+                return "Choosing";
+            case PlayerState.Finished:
+                return "Finished";
+            case PlayerState.Waiting:
+                return "Waiting";
+        }
+    }
 </script>
 
 <div class="card-container">
     <div class="profile-container"/>
     <div class="info-container">
         <h3>{player.name}</h3>
-        <p>{player.state}</p>
+        <p>{getStateString(player.state)}</p>
     </div>
     <div class="score-container">
         {player.score} pts
