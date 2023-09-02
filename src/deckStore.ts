@@ -6,12 +6,14 @@ class DeckStateStore {
 	answers: Writable<Card[]>;
 	questions: Writable<Card[]>;
 	name: Writable<string>;
+	selectedCard: Writable<Card | undefined>;
 
 	constructor(user: User) {
 		this.creator = writable(user);
 		this.answers = writable([]);
 		this.questions = writable([]);
 		this.name = writable('new deck');
+		this.selectedCard = writable();
 	}
 
 	initMockData(): void {
@@ -32,6 +34,12 @@ class DeckStateStore {
 		console.log(get(this.questions));
 		console.log('name:');
 		console.log(get(this.name));
+	}
+
+	selectCard(card: Card) {
+		let currentlySelectedCard = get(this.selectedCard);
+		if (currentlySelectedCard?.id === card.id) this.selectedCard.set(undefined);
+		else this.selectedCard.set(card);
 	}
 }
 

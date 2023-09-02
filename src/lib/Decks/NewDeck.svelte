@@ -1,5 +1,13 @@
 <script lang="ts">
 	import DeckInfo from './DeckInfo.svelte';
+	import { goto } from '$app/navigation';
+	import CardList from './CardList.svelte';
+	import { deckState } from '../../deckStore';
+	function saveDeck() {
+		goto('/');
+	}
+	deckState.initMockData();
+	let { answers, questions } = deckState;
 </script>
 
 <div class="container">
@@ -7,11 +15,17 @@
 		<DeckInfo />
 	</div>
 	<div class="save-area area-container">
-		<button class="btn"> Save Deck</button>
+		<button class="btn" on:click={saveDeck}> Save Deck</button>
 	</div>
-	<div class="questions-area area-container">Questions</div>
+	<div class="questions-area area-container">
+		<h2>Questions</h2>
+		<CardList cards={$questions} />
+	</div>
 	<div class="card-edit-area area-container">Edit</div>
-	<div class="answers-area area-container">Answers</div>
+	<div class="answers-area area-container">
+		<h2>Answers</h2>
+		<CardList cards={$answers} />
+	</div>
 	<div class="add-question-area area-container">Add Question</div>
 	<div class="add-answer-area area-container">Add answer</div>
 </div>
@@ -40,7 +54,7 @@
 		height: 100%;
 		padding: 10px;
 		box-sizing: border-box;
-		background-color: brown;
+		/* background-color: brown; */
 	}
 
 	.btn {
