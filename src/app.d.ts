@@ -30,14 +30,13 @@ interface Answer {
 	card: Card;
 }
 
-// interface AnswersStoreState {
-// 	answers: Answer[];
-// 	selectedAnswe?: Answer;
-// 	choiceConfirmed: boolean;
-// }
+interface User {
+	id: number;
+	name: string;
+}
 
-// interface OwnCardsStoreState {
-// 	cards: Card[];
-// 	selectedCard?: Card;
-// 	choiceConfirmed: boolean;
-// }
+interface Deck {
+	creator: User;
+	answerCards: Card[];
+	questionCards: Card[];
+}

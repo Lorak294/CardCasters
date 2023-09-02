@@ -158,8 +158,62 @@ export let mockAnswers: Answer[] = [
 
 export let mockLoggedPlayer: Player = mockPlayers[6];
 
-export let mockQuestionCard: Card = {
+export let mockQuestionCards: Card[] = [
+	{
+		id: 100,
+		text: 'Question card, give answer ___.',
+		type: CardType.Question
+	},
+	{
+		id: 102,
+		text: 'question 2 - somethingloner here',
+		type: CardType.Question
+	},
+	{
+		id: 103,
+		text: 'question 3 diosjdsodhsodh',
+		type: CardType.Question
+	},
+	{
+		id: 104,
+		text: 'question 4',
+		type: CardType.Question
+	},
+	{
+		id: 105,
+		text: 'question 5 sdj ',
+		type: CardType.Question
+	},
+	{
+		id: 106,
+		text: 'question 6',
+		type: CardType.Question
+	},
+	{
+		id: 107,
+		text: 'question 7',
+		type: CardType.Question
+	},
+	{
+		id: 108,
+		text: 'question 8',
+		type: CardType.Question
+	},
+	{
+		id: 109,
+		text: 'question 9',
+		type: CardType.Question
+	},
+	{
+		id: 110,
+		text: 'question 10',
+		type: CardType.Question
+	}
+];
+
+export let mockQuestionCard: Card = mockQuestionCards[0];
+
+export let mockUser: User = {
 	id: 2137,
-	text: 'Question card, give answer ___.',
-	type: CardType.Question
+	name: 'mockUser'
 };
