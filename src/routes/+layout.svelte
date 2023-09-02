@@ -1,16 +1,26 @@
 <div class="main-container">
-    <slot/>
+	<slot />
 </div>
 
 <style>
-     @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@500&family=Roboto:wght@400;500;700&display=swap");
+	@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@500&family=Roboto:wght@400;500;700&display=swap');
 
-    .main-container{
-        width: 100vw;
-        min-height: 100vh;
-        max-width: 100%;
-        font-family: "Poppins", sans-serif;
-        background-color: #303633;
-        color: whitesmoke;
-    }
+	:global(:root) {
+		--background: #303633;
+		--secondary1: #05161a;
+		--main1: #fcfefe;
+		--active: #339989;
+		--success: #5db855;
+		--disabled: #727272;
+		--shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	}
+
+	.main-container {
+		width: 100vw;
+		min-height: 100vh;
+		max-width: 100%;
+		font-family: 'Poppins', sans-serif;
+		background-color: #303633;
+		color: var(--main1);
+	}
 </style>
