@@ -3,11 +3,14 @@
 	import { goto } from '$app/navigation';
 	import CardList from './CardList.svelte';
 	import { deckState } from '../../deckStore';
+	import EditableCard from './EditableCard.svelte';
+	import AddCardBtn from './AddCardBtn.svelte';
+	import { CardType } from '../../common';
 	function saveDeck() {
 		goto('/');
 	}
 	deckState.initMockData();
-	let { answers, questions } = deckState;
+	let { answers, questions, selectedCard, newCard } = deckState;
 </script>
 
 <div class="container">
@@ -21,13 +24,23 @@
 		<h2>Questions</h2>
 		<CardList cards={$questions} />
 	</div>
-	<div class="card-edit-area area-container">Edit</div>
+	<div class="card-edit-area area-container">
+		{#if $selectedCard}
+			<EditableCard card={$selectedCard} />
+		{:else if $newCard}
+			<EditableCard card={$newCard} />
+		{/if}
+	</div>
 	<div class="answers-area area-container">
 		<h2>Answers</h2>
 		<CardList cards={$answers} />
 	</div>
-	<div class="add-question-area area-container">Add Question</div>
-	<div class="add-answer-area area-container">Add answer</div>
+	<div class="add-question-area area-container">
+		<AddCardBtn type={CardType.Question} />
+	</div>
+	<div class="add-answer-area area-container">
+		<AddCardBtn type={CardType.Answer} />
+	</div>
 </div>
 
 <style>
@@ -36,7 +49,7 @@
 		/* background-color: aqua; */
 		width: 100%;
 		height: 100%;
-		grid-template-rows: 15vh 75vh 1fr;
+		grid-template-rows: 15vh 65vh 10vh;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-gap: 0.5rem;
 		grid-template-areas:
@@ -67,6 +80,12 @@
 		font-weight: 600;
 		color: var(--main1);
 		background-color: var(--active);
+		box-shadow: var(--shadow);
+
+		&:hover {
+			transform: scale(1.2);
+			transition: 0.3s;
+		}
 	}
 
 	.deck-info-area {
