@@ -1,7 +1,7 @@
 <script lang="ts">
 	import IconEdit from '~icons/ic/baseline-edit';
 	import { CardType } from '../../common';
-	import { deckState } from '../../deckStore';
+	import { deckState } from '../../stores/deckStore';
 	export let card: Card;
 
 	let { selectedCard } = deckState;

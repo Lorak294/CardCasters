@@ -1,6 +1,6 @@
 <script>
 	import Answer from './Answer.svelte';
-	import { roomState } from '../../roomStore';
+	import { roomState } from '../../stores/roomStore';
 	let answers = roomState.answersStore;
 
 	let selectedCard;

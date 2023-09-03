@@ -1,6 +1,6 @@
 import { writable, get, type Writable } from 'svelte/store';
-import { mockAnswerCards, mockQuestionCards, mockUser } from './mockdata';
-import { CardType } from './common';
+import { mockAnswerCards, mockQuestionCards, mockUser } from '../lib/mockdata';
+import { CardType } from '../common';
 
 class DeckStateStore {
 	creator: Writable<User>;

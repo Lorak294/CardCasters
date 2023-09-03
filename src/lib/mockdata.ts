@@ -1,4 +1,4 @@
-import { PlayerState, CardType, PlayerRole } from './common';
+import { PlayerState, CardType, PlayerRole } from '../common';
 
 export let mockPlayers: Player[] = [
 	{
@@ -217,3 +217,46 @@ export let mockUser: User = {
 	id: 2137,
 	name: 'mockUser'
 };
+
+export let mockDecksStats: DeckStats[] = [
+	{
+		id: 3001,
+		name: 'deck1',
+		code: '#d1',
+		creator: mockUser,
+		answerCardsCount: 30,
+		questionCardsCount: 10
+	},
+	{
+		id: 3002,
+		name: 'deck2',
+		code: '#d2',
+		creator: mockUser,
+		answerCardsCount: 30,
+		questionCardsCount: 10
+	},
+	{
+		id: 3003,
+		name: 'deck3',
+		code: '#d3',
+		creator: mockUser,
+		answerCardsCount: 30,
+		questionCardsCount: 10
+	},
+	{
+		id: 3004,
+		name: 'deck4',
+		code: '#d4',
+		creator: mockUser,
+		answerCardsCount: 30,
+		questionCardsCount: 10
+	},
+	{
+		id: 3005,
+		name: 'deck5',
+		code: '#d5',
+		creator: mockUser,
+		answerCardsCount: 30,
+		questionCardsCount: 10
+	}
+];

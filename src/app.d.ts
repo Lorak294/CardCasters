@@ -36,7 +36,19 @@ interface User {
 }
 
 interface Deck {
+	id: number;
 	creator: User;
+	name: string;
+	code: string;
 	answerCards: Card[];
 	questionCards: Card[];
+}
+
+interface DeckStats {
+	id: number;
+	creator: User;
+	name: string;
+	code: string;
+	answerCardsCount: number;
+	questionCardsCount: number;
 }

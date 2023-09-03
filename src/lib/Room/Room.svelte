@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PlayerListWindow from './PlayerListWindow.svelte';
-	import { roomState } from '../../roomStore';
+	import { roomState } from '../../stores/roomStore';
 	import QuestionCard from './QuestionCard.svelte';
 	import AnswersSection from './AnswersSection.svelte';
 	import OwnCardListWindow from './OwnCardListWindow.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { deckState } from '../../deckStore';
+	import { deckState } from '../../stores/deckStore';
 	import IconEdit from '~icons/ic/baseline-edit';
 
 	let deckName = deckState.name;

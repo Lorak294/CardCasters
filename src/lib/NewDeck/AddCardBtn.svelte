@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { CardType } from '../../common';
 	import IconPlus from '~icons/ic/baseline-plus';
-	import { deckState } from '../../deckStore';
+	import { deckState } from '../../stores/deckStore';
 
 	export let type: CardType;
 

@@ -2,7 +2,7 @@
 	import DeckInfo from './DeckInfo.svelte';
 	import { goto } from '$app/navigation';
 	import CardList from './CardList.svelte';
-	import { deckState } from '../../deckStore';
+	import { deckState } from '../../stores/deckStore';
 	import EditableCard from './EditableCard.svelte';
 	import AddCardBtn from './AddCardBtn.svelte';
 	import { CardType } from '../../common';

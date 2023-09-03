@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CardType } from '../../common';
-	import { deckState } from '../../deckStore';
+	import { deckState } from '../../stores/deckStore';
 
 	export let card: Card;
 
