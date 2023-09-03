@@ -6,4 +6,4 @@
 	export let data: PageData;
 </script>
 
-<DeckLibrary deckStats={data.deckStats} />
+<DeckLibrary deckSummaries={data.deckSummaries} />

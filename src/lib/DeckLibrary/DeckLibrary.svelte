@@ -1,5 +1,7 @@
 <script lang="ts">
-	export let deckStats: DeckStats[];
+	import DeckWidget from './DeckWidget.svelte';
+
+	export let deckSummaries: DeckSummary[];
 </script>
 
 <div class="container">
@@ -10,12 +12,8 @@
 		<h3>Do filters in the future</h3>
 	</div>
 	<div class="decks">
-		{#each deckStats as deckstat (deckstat.id)}
-			<div>
-				<p>
-					{JSON.stringify(deckstat, null, 2)}
-				</p>
-			</div>
+		{#each deckSummaries as deckSummary (deckSummary.id)}
+			<DeckWidget {deckSummary} />
 		{/each}
 	</div>
 </div>
@@ -44,5 +42,8 @@
 	.decks {
 		width: 100%;
 		padding: 5vh;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-gap: 2em;
 	}
 </style>

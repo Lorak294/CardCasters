@@ -44,7 +44,7 @@ interface Deck {
 	questionCards: Card[];
 }
 
-interface DeckStats {
+interface DeckSummary {
 	id: number;
 	creator: User;
 	name: string;
