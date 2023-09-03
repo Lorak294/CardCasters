@@ -46,7 +46,6 @@
 <style>
 	.container {
 		display: grid;
-		/* background-color: aqua; */
 		width: 100%;
 		height: 100%;
 		grid-template-rows: 15vh 65vh 10vh;
@@ -67,7 +66,6 @@
 		height: 100%;
 		padding: 10px;
 		box-sizing: border-box;
-		/* background-color: brown; */
 	}
 
 	.btn {
