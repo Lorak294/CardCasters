@@ -1,16 +1,45 @@
-<div class="main-container">
-    <slot/>
-</div>
+<script lang="ts">
+	import '../app.css';
+	import IconUser from '~icons/mdi/account';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+</script>
+
+<nav>
+	<a href="/" class="logo">
+		<h1>CardCasters</h1>
+	</a>
+	<a href="/room">Room</a>
+	<a href="/decks/browse">Decks</a>
+	<a href="/decks/newdeck">New Decks</a>
+	<div class="logged-user">
+		<p>{data.user.name}</p>
+		<IconUser style="font-size: 2em" />
+	</div>
+</nav>
+
+<slot />
 
 <style>
-     @import url("https://fonts.googleapis.com/css2?family=Nunito&family=Poppins:wght@500&family=Roboto:wght@400;500;700&display=swap");
+	nav {
+		background-color: var(--active);
+		color: var(--main1);
+		display: flex;
+		justify-content: space-around;
+		padding: 10px;
+		z-index: 100;
+		align-items: center;
+	}
 
-    .main-container{
-        width: 100vw;
-        min-height: 100vh;
-        max-width: 100%;
-        font-family: "Poppins", sans-serif;
-        background-color: #303633;
-        color: whitesmoke;
-    }
+	a {
+		color: var(--main1);
+		text-decoration: none;
+	}
+
+	.logged-user {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+	}
 </style>

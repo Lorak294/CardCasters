@@ -5,8 +5,8 @@ import {
 	mockLoggedPlayer,
 	mockPlayers,
 	mockQuestionCard
-} from './mockdata';
-import { PlayerRole, PlayerState } from './common';
+} from '../lib/mockdata';
+import { PlayerRole, PlayerState } from '../common';
 
 class RoomStateStore {
 	ownCardsStore: Writable<Card[]>;
