@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import { CardType } from '../../common';
+	import { CardType } from '../../../common';
 	import IconPlus from '~icons/ic/baseline-plus';
-	import type { NewDeckStore } from '../../stores/NewDeckStore';
+	import { getStore } from '../../stores/NewDeckStore';
 
 	export let type: CardType;
 
-	const newDeckStore: NewDeckStore = getContext('newDeckStore');
+	const newDeckStore = getStore();
 
 	let cardTypeStr: string;
 

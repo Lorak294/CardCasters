@@ -5,14 +5,12 @@
 	import EditableCard from './EditableCard.svelte';
 	import AddCardBtn from './AddCardBtn.svelte';
 	import { CardType } from '../../../common';
-	import { getContext } from 'svelte';
-	import type { NewDeckStore } from '../../../stores/NewDeckStore';
+	import { getStore } from '../../stores/NewDeckStore';
 	function saveDeck() {
 		goto('/');
 	}
 
-	const newDeckStore: NewDeckStore = getContext('newDeckStore');
-	newDeckStore.initMockData();
+	const newDeckStore = getStore();
 	let { answers, questions, selectedCard, newCard } = newDeckStore;
 </script>
 

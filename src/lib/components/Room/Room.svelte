@@ -1,30 +1,31 @@
 <script lang="ts">
 	import PlayerListWindow from './PlayerListWindow.svelte';
-	import { roomState } from '../../stores/roomStore';
 	import QuestionCard from './QuestionCard.svelte';
 	import AnswersSection from './AnswersSection.svelte';
 	import OwnCardListWindow from './OwnCardListWindow.svelte';
+	import { getStore } from '$lib/stores/RoomStore';
 
-	let players = roomState.playersStore;
-	let questionCard = roomState.questionCard;
-	let cards = roomState.ownCardsStore;
-	let selectedCard = roomState.selectedCard;
-	let cardSelectionConfirmed = roomState.cardSelectionConfirmed;
-	let answers = roomState.answersStore;
+	const roomStore = getStore();
 
-	//roomState.newRound();
+	let {
+		playersStore,
+		questionCard,
+		ownCardsStore,
+		selectedCard,
+		cardSelectionConfirmed,
+		answersStore
+	} = roomStore;
 
-	let screenHeight: number;
 	let screenWidth: number;
-	$: playerWindowSize = screenHeight / 175;
+
 	$: cardWindowSize = screenWidth / 300;
 </script>
 
-<svelte:window bind:innerHeight={screenHeight} bind:innerWidth={screenWidth} />
+<svelte:window bind:innerWidth={screenWidth} />
 <div class="room-container">
 	<!-- Player list -->
 	<div class="player-list section-container">
-		<h1 class="header">Players {$players.length}/{roomState.MAX_PLAYERS}</h1>
+		<h1 class="header">Players {$playersStore.length}/{roomStore.MAX_PLAYERS}</h1>
 		<PlayerListWindow />
 	</div>
 	<!-- Question card -->
@@ -37,19 +38,19 @@
 	<!-- Answers -->
 	<div class="answers-area section-container">
 		<!-- <AnswersSection/> -->
-		<h1 class="header">Answers ({$answers.length}/{$players.length})</h1>
+		<h1 class="header">Answers ({$answersStore.length}/{$playersStore.length})</h1>
 		<AnswersSection />
 	</div>
 	<!-- Player cards -->
 	<div class="player-cards section-container">
 		<!-- <OwnCardsSection/> -->
 		<div class="card-section-header">
-			<h1>Your cards ({$cards.length})</h1>
+			<h1>Your cards ({$ownCardsStore.length})</h1>
 			<button
 				disabled={$selectedCard === undefined || $cardSelectionConfirmed}
 				class="confirm-btn"
 				class:ready-btn={$cardSelectionConfirmed}
-				on:click={() => roomState.confirmCardSelection()}
+				on:click={() => roomStore.confirmCardSelection()}
 			>
 				<h2>
 					{#if $cardSelectionConfirmed}

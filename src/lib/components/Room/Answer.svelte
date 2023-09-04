@@ -1,25 +1,27 @@
 <script lang="ts">
+	import { getStore } from '$lib/stores/RoomStore';
 	import AnswerCard from './AnswerCard.svelte';
-	import { roomState } from '../../stores/roomStore';
 	export let answer: Answer;
 
-	let selectedAnswer = roomState.selectedAnswer;
+	const roomStore = getStore();
+
+	let { selectedAnswer } = roomStore;
 
 	function handleSelection(event: any) {
-		roomState.selectAnswer(answer);
+		roomStore.selectAnswer(answer);
 	}
 </script>
 
 <div class="container">
 	<p class="owner-name">
-		{#if !roomState.canSeeAnswerSubmiter(answer)}
+		{#if !roomStore.canSeeAnswerSubmiter(answer)}
 			???
 		{:else}
 			{answer.submiter.name}
 		{/if}
 	</p>
 	<AnswerCard
-		hidden={!roomState.canSeeAnswer(answer)}
+		hidden={!roomStore.canSeeAnswer(answer)}
 		selected={$selectedAnswer?.card.id === answer.card.id}
 		card={answer.card}
 		on:item-selected={handleSelection}

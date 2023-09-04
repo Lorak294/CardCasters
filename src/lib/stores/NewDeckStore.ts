@@ -1,8 +1,9 @@
 import { writable, get, type Writable } from 'svelte/store';
-import { mockAnswerCards, mockQuestionCards, mockUser } from '../lib/mockdata';
-import { CardType } from '../common';
+import { mockAnswerCards, mockQuestionCards } from '../mockdata';
+import { CardType } from '../../common';
+import { getContext, setContext } from 'svelte';
 
-export class NewDeckStore {
+class NewDeckStore {
 	creator: User;
 	answers: Writable<Card[]>;
 	questions: Writable<Card[]>;
@@ -123,4 +124,14 @@ export class NewDeckStore {
 		// cleanup selected and new cards
 		this.deselectCard();
 	}
+}
+
+export function createStore(user: User) {
+	const newDeckStore = new NewDeckStore(user);
+	newDeckStore.initMockData();
+	setContext<NewDeckStore>('newDeckStore', newDeckStore);
+}
+
+export function getStore(): NewDeckStore {
+	return getContext<NewDeckStore>('newDeckStore');
 }

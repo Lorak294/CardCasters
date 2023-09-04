@@ -1,11 +1,10 @@
 <script lang="ts">
 	import IconEdit from '~icons/ic/baseline-edit';
-	import { CardType } from '../../common';
-	import { getContext } from 'svelte';
-	import type { NewDeckStore } from '../../stores/NewDeckStore';
+	import { CardType } from '../../../common';
+	import { getStore } from '../../stores/NewDeckStore';
 	export let card: Card;
 
-	const newDeckStore: NewDeckStore = getContext('newDeckStore');
+	const newDeckStore = getStore();
 
 	let { selectedCard } = newDeckStore;
 

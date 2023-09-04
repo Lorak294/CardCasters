@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { getStore } from '$lib/stores/RoomStore';
 	import PlayerCard from './PlayerCard.svelte';
-	import { roomState } from '../../stores/roomStore';
 
-	let players = roomState.playersStore;
+	const roomStore = getStore();
+
+	let players = roomStore.playersStore;
 </script>
 
 <div class="container">

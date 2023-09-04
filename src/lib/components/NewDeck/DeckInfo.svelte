@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
 	import IconEdit from '~icons/ic/baseline-edit';
-	import type { NewDeckStore } from '../../stores/NewDeckStore';
+	import { getStore } from '../../stores/NewDeckStore';
 
-	const newDeckStore: NewDeckStore = getContext('newDeckStore');
+	const newDeckStore = getStore();
 
 	let deckName = newDeckStore.name;
 	let creator = newDeckStore.creator;

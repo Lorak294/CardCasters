@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { getStore } from '$lib/stores/RoomStore';
 	import AnswerCard from './AnswerCard.svelte';
-	import { roomState } from '../../stores/roomStore';
 	export let card: Card;
 
-	let selectedCard = roomState.selectedCard;
+	const roomStore = getStore();
+
+	let { selectedCard } = roomStore;
 
 	function handleSelection(event: any) {
-		roomState.selectCard(card);
+		roomStore.selectCard(card);
 	}
 </script>
 

@@ -1,10 +1,10 @@
 <script>
+	import { getStore } from '$lib/stores/RoomStore';
 	import Answer from './Answer.svelte';
-	import { roomState } from '../../stores/roomStore';
-	let answers = roomState.answersStore;
 
-	let selectedCard;
-	let confirmedChoice;
+	const roomStore = getStore();
+
+	let answers = roomStore.answersStore;
 </script>
 
 <div class="answers-container">
