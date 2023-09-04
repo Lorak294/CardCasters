@@ -218,7 +218,7 @@ export let mockUser: User = {
 	name: 'mockUser'
 };
 
-export let mockDecksStats: DeckStats[] = [
+export let mockDecksStats: DeckSummary[] = [
 	{
 		id: 3001,
 		name: 'deck1',

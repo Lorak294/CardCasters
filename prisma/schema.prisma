@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String @unique
+  decks Deck[]
+}
+
+model Deck {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String
+  cards Card[]
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+}
+
+model Card {
+  id Int @id @default(autoincrement())
+  text String
+  isAnswer Boolean
+  deck Deck @relation(fields: [deckId], references: [id])
+  deckId Int
+}
