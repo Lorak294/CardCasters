@@ -1,6 +1,5 @@
 import { writable, get, type Writable } from 'svelte/store';
 import { mockAnswerCards, mockQuestionCards } from '../mockdata';
-import { CardType } from '../../common';
 import { getContext, setContext } from 'svelte';
 
 class NewDeckStore {
@@ -47,20 +46,7 @@ class NewDeckStore {
 	}
 
 	updateOrAddCard(card: Card) {
-		let arrayToUpdate: Writable<Card[]>;
-
-		switch (card.type) {
-			case CardType.Answer:
-				arrayToUpdate = this.answers;
-				break;
-			case CardType.Question:
-				arrayToUpdate = this.questions;
-				break;
-			default:
-				console.error('unrecognized card type.');
-				return;
-		}
-
+		let arrayToUpdate = card.isAnswer ? this.answers : this.questions;
 		let currentNewCard = get(this.newCard);
 
 		if (currentNewCard?.id === card.id) {
@@ -85,11 +71,11 @@ class NewDeckStore {
 		this.newCard.set(undefined);
 	}
 
-	createNewCard(type: CardType) {
+	createNewCard(isAnswer: boolean) {
 		let newCard = {
 			id: 1001,
 			text: 'new card',
-			type
+			isAnswer
 		};
 		this.newCard.set(newCard);
 	}
@@ -99,20 +85,7 @@ class NewDeckStore {
 
 		if (!currentNewCard || currentNewCard.id !== card.id) {
 			// not a new card
-			let arrayToUpdate: Writable<Card[]>;
-
-			// get card type
-			switch (card.type) {
-				case CardType.Answer:
-					arrayToUpdate = this.answers;
-					break;
-				case CardType.Question:
-					arrayToUpdate = this.questions;
-					break;
-				default:
-					console.error('unrecognized card type.');
-					return;
-			}
+			let arrayToUpdate = card.isAnswer ? this.answers : this.questions;
 
 			// delete cards with corresponding id
 			arrayToUpdate.update((prev) => {

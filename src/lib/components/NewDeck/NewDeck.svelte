@@ -4,7 +4,6 @@
 	import CardList from './CardList.svelte';
 	import EditableCard from './EditableCard.svelte';
 	import AddCardBtn from './AddCardBtn.svelte';
-	import { CardType } from '../../../common';
 	import { getStore } from '../../stores/NewDeckStore';
 	function saveDeck() {
 		goto('/');
@@ -37,10 +36,10 @@
 		<CardList cards={$answers} />
 	</div>
 	<div class="add-question-area area-container">
-		<AddCardBtn type={CardType.Question} />
+		<AddCardBtn answer={false} />
 	</div>
 	<div class="add-answer-area area-container">
-		<AddCardBtn type={CardType.Answer} />
+		<AddCardBtn answer={true} />
 	</div>
 </div>
 

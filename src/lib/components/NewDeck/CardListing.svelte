@@ -1,6 +1,5 @@
 <script lang="ts">
 	import IconEdit from '~icons/ic/baseline-edit';
-	import { CardType } from '../../../common';
 	import { getStore } from '../../stores/NewDeckStore';
 	export let card: Card;
 
@@ -13,14 +12,7 @@
 	$: {
 		if ($selectedCard && $selectedCard === card) styling = 'selected';
 		else {
-			switch (card.type) {
-				case CardType.Answer:
-					styling = 'answer';
-					break;
-				case CardType.Question:
-					styling = 'question';
-					break;
-			}
+			styling = card.isAnswer ? 'answer' : 'question';
 		}
 	}
 </script>

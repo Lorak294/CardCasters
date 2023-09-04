@@ -1,26 +1,9 @@
 <script lang="ts">
-	import { CardType } from '../../../common';
 	import { getStore } from '../../stores/NewDeckStore';
 
 	export let card: Card;
 
 	const newDeckStore = getStore();
-
-	let styling: string;
-
-	$: {
-		switch (card.type) {
-			case CardType.Answer:
-				styling = 'answer';
-				break;
-			case CardType.Question:
-				styling = 'question';
-				break;
-			default:
-				styling = '';
-				break;
-		}
-	}
 
 	function saveCard() {
 		let newText = getCardText();
@@ -57,7 +40,7 @@
 {#if card}
 	<div class="container">
 		<h2>Edit card</h2>
-		<div class="card-container {styling}">
+		<div class="card-container {card.isAnswer ? 'answer' : 'question'}">
 			<h2
 				contenteditable="true"
 				spellcheck="false"

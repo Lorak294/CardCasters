@@ -15,7 +15,7 @@ declare global {
 interface Card {
 	id: number;
 	text: string;
-	type: CardType;
+	isAnswer: boolean;
 }
 
 interface Player {
@@ -39,7 +39,9 @@ interface User {
 
 interface Deck {
 	id: number;
-	creator: User;
+	createdAt: Date;
+	updatedAt: Date;
+	author: User;
 	name: string;
 	code: string;
 	answerCards: Card[];

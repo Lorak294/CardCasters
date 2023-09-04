@@ -1,4 +1,4 @@
-import { PlayerState, CardType, PlayerRole } from '../common';
+import { PlayerState, PlayerRole } from '../common';
 
 export let mockPlayers: Player[] = [
 	{
@@ -56,52 +56,52 @@ export let mockAnswerCards: Card[] = [
 	{
 		id: 1,
 		text: 'carda 1',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 2,
 		text: 'carda 2 - somethingloner here',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 3,
 		text: 'carda 3 s a a sd  a sd',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 4,
 		text: 'carda 4',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 5,
 		text: 'carda 5 sdj ',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 6,
 		text: 'card6',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 7,
 		text: 'card6',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 8,
 		text: 'card6',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 9,
 		text: 'card6',
-		type: CardType.Answer
+		isAnswer: true
 	},
 	{
 		id: 10,
 		text: 'card6',
-		type: CardType.Answer
+		isAnswer: true
 	}
 ];
 
@@ -111,7 +111,7 @@ export let mockAnswers: Answer[] = [
 		card: {
 			id: 10,
 			text: 'answer of player 0',
-			type: CardType.Answer
+			isAnswer: true
 		}
 	},
 	{
@@ -119,7 +119,7 @@ export let mockAnswers: Answer[] = [
 		card: {
 			id: 11,
 			text: 'answer of player 1',
-			type: CardType.Answer
+			isAnswer: true
 		}
 	},
 	{
@@ -127,7 +127,7 @@ export let mockAnswers: Answer[] = [
 		card: {
 			id: 12,
 			text: 'answer of player 2',
-			type: CardType.Answer
+			isAnswer: true
 		}
 	},
 	{
@@ -135,7 +135,7 @@ export let mockAnswers: Answer[] = [
 		card: {
 			id: 13,
 			text: 'answer of player 3',
-			type: CardType.Answer
+			isAnswer: true
 		}
 	},
 	{
@@ -143,7 +143,7 @@ export let mockAnswers: Answer[] = [
 		card: {
 			id: 14,
 			text: 'answer of player 4',
-			type: CardType.Answer
+			isAnswer: true
 		}
 	},
 	{
@@ -151,7 +151,7 @@ export let mockAnswers: Answer[] = [
 		card: {
 			id: 15,
 			text: 'answer of player 5',
-			type: CardType.Answer
+			isAnswer: true
 		}
 	}
 ];
@@ -162,52 +162,52 @@ export let mockQuestionCards: Card[] = [
 	{
 		id: 100,
 		text: 'Question card, give answer ___.',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 102,
 		text: 'question 2 - somethingloner here',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 103,
 		text: 'question 3 diosjdsodhsodh',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 104,
 		text: 'question 4',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 105,
 		text: 'question 5 sdj ',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 106,
 		text: 'question 6',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 107,
 		text: 'question 7',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 108,
 		text: 'question 8',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 109,
 		text: 'question 9',
-		type: CardType.Question
+		isAnswer: false
 	},
 	{
 		id: 110,
 		text: 'question 10',
-		type: CardType.Question
+		isAnswer: false
 	}
 ];
 
@@ -215,7 +215,8 @@ export let mockQuestionCard: Card = mockQuestionCards[0];
 
 export let mockUser: User = {
 	id: 2137,
-	name: 'mockUser'
+	name: 'mockUser',
+	email: 'mock@email.com'
 };
 
 export let mockDecksStats: DeckSummary[] = [
