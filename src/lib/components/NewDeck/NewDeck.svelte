@@ -2,15 +2,18 @@
 	import DeckInfo from './DeckInfo.svelte';
 	import { goto } from '$app/navigation';
 	import CardList from './CardList.svelte';
-	import { deckState } from '../../stores/deckStore';
 	import EditableCard from './EditableCard.svelte';
 	import AddCardBtn from './AddCardBtn.svelte';
-	import { CardType } from '../../common';
+	import { CardType } from '../../../common';
+	import { getContext } from 'svelte';
+	import type { NewDeckStore } from '../../../stores/NewDeckStore';
 	function saveDeck() {
 		goto('/');
 	}
-	deckState.initMockData();
-	let { answers, questions, selectedCard, newCard } = deckState;
+
+	const newDeckStore: NewDeckStore = getContext('newDeckStore');
+	newDeckStore.initMockData();
+	let { answers, questions, selectedCard, newCard } = newDeckStore;
 </script>
 
 <div class="container">

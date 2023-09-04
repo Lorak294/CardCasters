@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
 	import { CardType } from '../../common';
-	import { deckState } from '../../stores/deckStore';
+	import type { NewDeckStore } from '../../stores/NewDeckStore';
 
 	export let card: Card;
+
+	const newDeckStore: NewDeckStore = getContext('newDeckStore');
 
 	let styling: string;
 
@@ -24,12 +27,12 @@
 		let newText = getCardText();
 		if (!newText) return;
 		card.text = newText;
-		deckState.updateOrAddCard(card);
-		deckState.deselectCard();
+		newDeckStore.updateOrAddCard(card);
+		newDeckStore.deselectCard();
 	}
 
 	function deleteCard() {
-		deckState.deleteCard(card);
+		newDeckStore.deleteCard(card);
 	}
 
 	function updateText(e: FocusEvent) {
@@ -44,7 +47,7 @@
 	}
 
 	function deselectCard(e: MouseEvent) {
-		deckState.deselectCard();
+		newDeckStore.deselectCard();
 	}
 
 	function getCardText() {

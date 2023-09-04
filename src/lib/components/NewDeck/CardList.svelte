@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { deckState } from '../../stores/deckStore';
 	import CardListing from './CardListing.svelte';
 
 	export let cards: Card[];

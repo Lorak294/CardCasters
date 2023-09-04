@@ -1,10 +1,13 @@
 <script lang="ts">
 	import IconEdit from '~icons/ic/baseline-edit';
 	import { CardType } from '../../common';
-	import { deckState } from '../../stores/deckStore';
+	import { getContext } from 'svelte';
+	import type { NewDeckStore } from '../../stores/NewDeckStore';
 	export let card: Card;
 
-	let { selectedCard } = deckState;
+	const newDeckStore: NewDeckStore = getContext('newDeckStore');
+
+	let { selectedCard } = newDeckStore;
 
 	let styling = '';
 
@@ -25,7 +28,7 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="container {styling}" on:click={() => deckState.selectCard(card)}>
+<div class="container {styling}" on:click={() => newDeckStore.selectCard(card)}>
 	<p>{card.text}</p>
 	<div class="icon-wrapper">
 		<IconEdit style="align-self: center; font-size: large;" />

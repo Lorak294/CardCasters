@@ -1,6 +1,5 @@
 <script lang="ts">
-	import DeckLibrary from '$lib/DeckLibrary/DeckLibrary.svelte';
-	import { deckStatsState } from '../../../stores/deckStatsStore';
+	import DeckLibrary from '$lib/components/DeckLibrary/DeckLibrary.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;

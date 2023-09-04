@@ -2,8 +2,8 @@ import { writable, get, type Writable } from 'svelte/store';
 import { mockAnswerCards, mockQuestionCards, mockUser } from '../lib/mockdata';
 import { CardType } from '../common';
 
-class DeckStateStore {
-	creator: Writable<User>;
+export class NewDeckStore {
+	creator: User;
 	answers: Writable<Card[]>;
 	questions: Writable<Card[]>;
 	name: Writable<string>;
@@ -11,7 +11,7 @@ class DeckStateStore {
 	newCard: Writable<Card | undefined>;
 
 	constructor(user: User) {
-		this.creator = writable(user);
+		this.creator = user;
 		this.answers = writable([]);
 		this.questions = writable([]);
 		this.name = writable('new deck');
@@ -30,7 +30,7 @@ class DeckStateStore {
 
 	logState(): void {
 		console.log('Creator:');
-		console.log(get(this.creator));
+		console.log(this.creator);
 		console.log('Answers:');
 		console.log(get(this.answers));
 		console.log('Questions:');
@@ -124,5 +124,3 @@ class DeckStateStore {
 		this.deselectCard();
 	}
 }
-
-export const deckState = new DeckStateStore(mockUser);

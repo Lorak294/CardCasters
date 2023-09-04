@@ -1,15 +1,18 @@
 <script lang="ts">
-	import { deckState } from '../../stores/deckStore';
+	import { getContext } from 'svelte';
 	import IconEdit from '~icons/ic/baseline-edit';
+	import type { NewDeckStore } from '../../stores/NewDeckStore';
 
-	let deckName = deckState.name;
-	let creator = deckState.creator;
+	const newDeckStore: NewDeckStore = getContext('newDeckStore');
+
+	let deckName = newDeckStore.name;
+	let creator = newDeckStore.creator;
 	let inputText: string;
 
 	function updateName(e: FocusEvent) {
 		let newName = inputText.trim();
 		if (newName) {
-			deckState.updateDeckName(newName);
+			newDeckStore.updateDeckName(newName);
 		} else {
 			//console.log('old input recovered.');
 		}
@@ -41,7 +44,7 @@
 			<IconEdit style="align-self: center; font-size: x-large;" />
 		</div>
 	</div>
-	<p>Created by: {$creator.name}</p>
+	<p>Created by: {creator.name}</p>
 </div>
 
 <style>

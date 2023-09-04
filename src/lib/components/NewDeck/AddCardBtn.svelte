@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
 	import { CardType } from '../../common';
 	import IconPlus from '~icons/ic/baseline-plus';
-	import { deckState } from '../../stores/deckStore';
+	import type { NewDeckStore } from '../../stores/NewDeckStore';
 
 	export let type: CardType;
 
-	let { newCard } = deckState;
+	const newDeckStore: NewDeckStore = getContext('newDeckStore');
+
 	let cardTypeStr: string;
 
 	switch (type) {
@@ -21,7 +23,7 @@
 	}
 
 	function addHandler() {
-		deckState.createNewCard(type);
+		newDeckStore.createNewCard(type);
 	}
 </script>
 
