@@ -1,5 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
+
 declare global {
 	namespace App {
 		// interface Error {}
@@ -33,6 +34,7 @@ interface Answer {
 interface User {
 	id: number;
 	name: string;
+	email: string;
 }
 
 interface Deck {
