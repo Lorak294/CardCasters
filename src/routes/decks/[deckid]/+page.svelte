@@ -1,8 +1,13 @@
 <script lang="ts">
-	// import type { PageData } from '../$types';
+	import type { PageData } from './$types';
 
-	// export let data: PageData;
+	import DeckView from '$lib/components/DeckView/DeckView.svelte';
+	import { createStore } from '$lib/stores/NewDeckStore';
+
+	export let data: PageData;
+
+	createStore(data.deck);
 </script>
 
-<div>This is page of some deck.</div>
-<!-- <p>{data.deckid}</p> -->
+<!-- <div>{JSON.stringify(data, null, 2)}</div> -->
+<DeckView />

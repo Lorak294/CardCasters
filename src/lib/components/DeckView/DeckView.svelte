@@ -9,8 +9,8 @@
 		goto('/');
 	}
 
-	const newDeckStore = getStore();
-	let { answers, questions, selectedCard, newCard } = newDeckStore;
+	const deckStore = getStore();
+	let { deck, selectedCard, newCard } = deckStore;
 </script>
 
 <div class="container">
@@ -22,7 +22,7 @@
 	</div>
 	<div class="questions-area area-container">
 		<h2>Questions</h2>
-		<CardList cards={$questions} />
+		<CardList cards={$deck.questionCards} />
 	</div>
 	<div class="card-edit-area area-container">
 		{#if $selectedCard}
@@ -33,7 +33,7 @@
 	</div>
 	<div class="answers-area area-container">
 		<h2>Answers</h2>
-		<CardList cards={$answers} />
+		<CardList cards={$deck.answerCards} />
 	</div>
 	<div class="add-question-area area-container">
 		<AddCardBtn answer={false} />

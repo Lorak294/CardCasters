@@ -6,6 +6,7 @@ const db = new PrismaClient();
 async function main() {
 	console.log('Initializing seeding...');
 
+	let i = 1;
 	for (const c of mockCardData) {
 		const card = await db.card.create({
 			data: {
@@ -24,7 +25,7 @@ async function main() {
 				}
 			}
 		});
-		console.log(`created card with id: ${card.id} in deck ${card.deckId}`);
+		console.log(`created card [id: ${card.id}] in deck [id:${card.deckId}]`);
 	}
 	console.log('Seeding completed!');
 }

@@ -2,6 +2,7 @@ import db from '$lib/database';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
+// GET .../deck{deckid}
 export const GET: RequestHandler = async ({ url }) => {
 	const deckId = Number(url.searchParams.get('id'));
 
@@ -25,4 +26,17 @@ export const GET: RequestHandler = async ({ url }) => {
 	};
 
 	return json(deck);
+};
+
+// POST .../deck
+export const POST: RequestHandler = async ({ request }) => {
+	const req: DeckCreationRequest = await request.json();
+	console.log(req);
+
+	return new Response('');
+};
+
+type DeckCreationRequest = {
+	name: string;
+	authorId: number;
 };

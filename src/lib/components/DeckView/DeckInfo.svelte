@@ -2,20 +2,19 @@
 	import IconEdit from '~icons/ic/baseline-edit';
 	import { getStore } from '../../stores/NewDeckStore';
 
-	const newDeckStore = getStore();
+	const deckStore = getStore();
+	const { deck } = deckStore;
 
-	let deckName = newDeckStore.name;
-	let creator = newDeckStore.creator;
 	let inputText: string;
 
 	function updateName(e: FocusEvent) {
 		let newName = inputText.trim();
 		if (newName) {
-			newDeckStore.updateDeckName(newName);
+			deckStore.updateDeckName(newName);
 		} else {
 			//console.log('old input recovered.');
 		}
-		inputText = $deckName;
+		inputText = $deck.name;
 		//deckState.logState();
 	}
 	function enterPressed(e: KeyboardEvent) {
@@ -35,7 +34,7 @@
 			on:blur={updateName}
 			on:keypress={enterPressed}
 		>
-			{$deckName}
+			{$deck.name}
 		</h1>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -43,7 +42,7 @@
 			<IconEdit style="align-self: center; font-size: x-large;" />
 		</div>
 	</div>
-	<p>Created by: {creator.name}</p>
+	<p>Created by: {$deck.author.name}</p>
 </div>
 
 <style>

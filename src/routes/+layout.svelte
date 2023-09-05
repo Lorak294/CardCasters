@@ -12,7 +12,7 @@
 	</a>
 	<a href="/room">Room</a>
 	<a href="/decks/browse">Decks</a>
-	<a href="/decks/newdeck">New Decks</a>
+	<a href="/decks/newdeck">New Deck</a>
 	<div class="logged-user">
 		<p>{data.user.name}</p>
 		<IconUser style="font-size: 2em" />
