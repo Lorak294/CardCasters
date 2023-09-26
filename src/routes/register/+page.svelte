@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
+
+	export let form: ActionData;
 </script>
 
 <div class="container">
@@ -8,14 +11,20 @@
 			<h1 class="title">Register</h1>
 
 			<label for="email">Email</label>
-			<input type="email" name="email" />
+			<input type="email" name="email" required />
 
 			<label for="username">Username</label>
-			<input type="text" name="username" />
+			<input type="text" name="username" required />
 
 			<label for="password">Password</label>
-			<input type="password" name="password" />
+			<input type="password" name="password" required />
 			<button type="submit">Register</button>
+
+			{#if form?.messeage}
+				<div class="error">
+					<p>{form?.messeage}</p>
+				</div>
+			{/if}
 		</form>
 		<div class="link">
 			<p>Already have an account?</p>
@@ -25,6 +34,14 @@
 </div>
 
 <style>
+	.error {
+		color: var(--cancel);
+		text-shadow: var(--shadow);
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+	}
+
 	.container {
 		width: 100%;
 		height: 100vh;

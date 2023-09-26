@@ -43,7 +43,7 @@ export const actions: Actions = {
 				PrismaClientKnownRequestError /* && e.message === USER_TABLE_UNIQUE_CONSTRAINT_ERROR */
 			) {
 				return fail(400, {
-					messeage: 'There is already an account for this email address.'
+					messeage: 'There is already an account for this email address or with this username.'
 				});
 			}
 

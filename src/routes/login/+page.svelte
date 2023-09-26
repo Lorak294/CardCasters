@@ -1,6 +1,9 @@
 <!-- routes/login/+page.svelte -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
+
+	export let form: ActionData;
 </script>
 
 <div class="container">
@@ -15,6 +18,11 @@
 			<input type="password" name="password" id="password" /><br />
 
 			<button type="submit">Sign in</button>
+			{#if form?.messeage}
+				<div class="error">
+					<p>{form?.messeage}</p>
+				</div>
+			{/if}
 		</form>
 		<div class="link">
 			<p>First time here?</p>
@@ -24,6 +32,14 @@
 </div>
 
 <style>
+	.error {
+		color: var(--cancel);
+		text-shadow: var(--shadow);
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+	}
+
 	.container {
 		width: 100%;
 		height: 100vh;
