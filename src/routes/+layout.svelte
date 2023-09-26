@@ -10,26 +10,35 @@
 	<a href="/" class="logo">
 		<h1>CardCasters</h1>
 	</a>
-	<a href="/room">Room</a>
-	<a href="/decks/browse">Decks</a>
-	<a href="/decks/newdeck">New Deck</a>
-	<div class="logged-user">
-		<p>{data.user.username}</p>
-		<IconUser style="font-size: 2em" />
-	</div>
+
+	{#if data.user}
+		<!-- logged user navigation -->
+		<a href="/room">Room</a>
+		<a href="/decks/browse">Decks</a>
+		<a href="/decks/newdeck">New Deck</a>
+		<a class="logged-user" href="/profile">
+			<p>{data.user.username}</p>
+			<IconUser style="font-size: 2em" />
+		</a>
+	{:else}
+		<!-- annonymous user navigation -->
+		<a href="/login">Sign in</a>
+		<a href="/register">Register</a>
+	{/if}
 </nav>
 
 <slot />
 
 <style>
 	nav {
-		background-color: var(--active);
+		background-color: var(--secondary1);
 		color: var(--main1);
 		display: flex;
 		justify-content: space-around;
 		padding: 10px;
 		z-index: 100;
 		align-items: center;
+		box-shadow: var(--shadow);
 	}
 
 	a {

@@ -1,25 +1,24 @@
+<!-- routes/login/+page.svelte -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
 </script>
 
 <div class="container">
 	<div class="widget">
-		<form class="register-form" method="POST" use:enhance>
-			<h1 class="title">Register</h1>
+		<form method="post" use:enhance>
+			<h1 class="title">Sign in</h1>
 
 			<label for="email">Email</label>
-			<input type="email" name="email" />
-
-			<label for="username">Username</label>
-			<input type="text" name="username" />
+			<input type="email" name="email" id="email" /><br />
 
 			<label for="password">Password</label>
-			<input type="password" name="password" />
-			<button type="submit">Register</button>
+			<input type="password" name="password" id="password" /><br />
+
+			<button type="submit">Sign in</button>
 		</form>
 		<div class="link">
-			<p>Already have an account?</p>
-			<a href="/login">Sign in</a>
+			<p>First time here?</p>
+			<a href="/register">Create an account</a>
 		</div>
 	</div>
 </div>
