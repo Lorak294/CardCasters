@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { mockCardData } from './mockdata';
+import { mockCardData } from './mockData';
 
 const db = new PrismaClient();
 
@@ -17,7 +17,7 @@ async function main() {
 						name: c.deck.name,
 						author: {
 							create: {
-								name: c.deck.author.name,
+								username: c.deck.author.username,
 								email: c.deck.author.email
 							}
 						}

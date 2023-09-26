@@ -11,27 +11,49 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  name String @unique
-  decks Deck[]
+  id            String @id @unique @default(uuid())
+  email         String @unique
+  username      String @unique
+
+  decks         Deck[]
+  auth_session  Session[]
+  key           Key[]
+}
+
+model Session {
+  id             String @id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model Key {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
 }
 
 model Deck {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   name String
   cards Card[]
   author User @relation(fields: [authorId], references: [id])
-  authorId Int
+  authorId String
 }
 
 model Card {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   text String
   isAnswer Boolean
   deck Deck @relation(fields: [deckId], references: [id])
-  deckId Int
+  deckId String
 }

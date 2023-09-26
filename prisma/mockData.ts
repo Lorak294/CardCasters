@@ -1,6 +1,6 @@
 type User = {
 	email: string;
-	name: string;
+	username: string;
 };
 
 type Deck = {
@@ -17,15 +17,15 @@ type Card = {
 export let mockUserData: User[] = [
 	{
 		email: 'user1@yopmail.com',
-		name: 'user1'
+		username: 'user1'
 	},
 	{
 		email: 'user2@yopmail.com',
-		name: 'user2'
+		username: 'user2'
 	},
 	{
 		email: 'user3@yopmail.com',
-		name: 'user3'
+		username: 'user3'
 	}
 ];
 

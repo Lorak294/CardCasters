@@ -3,8 +3,8 @@ import type { RequestHandler } from './$types';
 
 import db from '$lib/database';
 
-function getDeckCountFromQuery(deckId: number, queryRes: any[]): number {
-	let record = queryRes.find((r) => r.id == deckId);
+function getDeckCountFromQuery(deckId: string, queryRes: any[]): number {
+	let record = queryRes.find((r) => r.id === deckId);
 	if (record) {
 		let strCount = String(record.count);
 		return +strCount;
@@ -39,7 +39,7 @@ export const GET: RequestHandler = async () => {
 			name: deck.name,
 			answerCardsCount: getDeckCountFromQuery(deck.id, answersCountRes),
 			questionCardsCount: getDeckCountFromQuery(deck.id, questonsCountRes),
-			code: `#DCK${deck.id}`
+			code: deck.id
 		} satisfies DeckSummary;
 	});
 

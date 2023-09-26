@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 
 // GET .../deck{deckid}
 export const GET: RequestHandler = async ({ url }) => {
-	const deckId = Number(url.searchParams.get('id'));
+	const deckId = String(url.searchParams.get('id'));
 
 	const dbDeck = await db.deck.findUnique({
 		include: {
@@ -22,7 +22,7 @@ export const GET: RequestHandler = async ({ url }) => {
 		...dbDeck,
 		answerCards: dbDeck?.cards.filter((c) => c.isAnswer) as Card[],
 		questionCards: dbDeck?.cards.filter((c) => !c.isAnswer) as Card[],
-		code: `#DCK${dbDeck?.id}`
+		code: dbDeck?.id
 	};
 
 	return json(deck);

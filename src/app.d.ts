@@ -1,19 +1,32 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 
+//import type { Validate, ValidateUser, SetSession } from '@lucia-auth/sveltekit';
+
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			auth: import('lucia').AuthRequest;
+		}
 		// interface PageData {}
 		// interface Platform {}
 	}
+
+	namespace Lucia {
+		type Auth = import('$lib/server/lucia').Auth;
+		type DatabaseUserAttributes = {
+			username: string;
+			email: string;
+		};
+		type DatabaseSessionAttributes = {};
+	}
 }
 
-//export {};
+export {};
 
 interface Card {
-	id: number;
+	id: string;
 	text: string;
 	isAnswer: boolean;
 }
@@ -32,13 +45,13 @@ interface Answer {
 }
 
 interface User {
-	id: number;
-	name: string;
+	id: string;
+	username: string;
 	email: string;
 }
 
 interface Deck {
-	id: number;
+	id: string;
 	createdAt: Date;
 	updatedAt: Date;
 	author: User;
@@ -49,7 +62,7 @@ interface Deck {
 }
 
 interface DeckSummary {
-	id: number;
+	id: string;
 	creator: User;
 	name: string;
 	code: string;

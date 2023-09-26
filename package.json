@@ -36,7 +36,9 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@lucia-auth/adapter-prisma": "^3.0.1",
 		"@prisma/client": "^5.2.0",
+		"lucia": "^2.7.0",
 		"zod": "^3.22.2",
 		"zod-form-data": "^2.0.1"
 	}

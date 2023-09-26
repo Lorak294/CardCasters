@@ -14,7 +14,7 @@
 	<a href="/decks/browse">Decks</a>
 	<a href="/decks/newdeck">New Deck</a>
 	<div class="logged-user">
-		<p>{data.user.name}</p>
+		<p>{data.user.username}</p>
 		<IconUser style="font-size: 2em" />
 	</div>
 </nav>
