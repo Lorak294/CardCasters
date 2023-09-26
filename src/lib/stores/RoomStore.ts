@@ -1,14 +1,9 @@
 import { writable, get, type Writable } from 'svelte/store';
-import {
-	mockAnswerCards,
-	mockAnswers,
-	mockLoggedPlayer,
-	mockPlayers,
-	mockQuestionCard
-} from '../lib/mockdata';
-import { PlayerRole, PlayerState } from '../common';
+import { mockAnswerCards, mockAnswers, mockPlayers, mockQuestionCard } from '../mockdata';
+import { PlayerRole, PlayerState } from '../../common';
+import { getContext, setContext } from 'svelte';
 
-class RoomStateStore {
+class RoomStore {
 	ownCardsStore: Writable<Card[]>;
 	answersStore: Writable<Answer[]>;
 	playersStore: Writable<Player[]>;
@@ -34,7 +29,7 @@ class RoomStateStore {
 		this.loggedPlayer = writable(player);
 	}
 
-	newRound(): void {
+	initMockData(): void {
 		console.log('initializing new round');
 		// later this method will call APIs for data
 		this.ownCardsStore.set(mockAnswerCards);
@@ -143,4 +138,12 @@ class RoomStateStore {
 	}
 }
 
-export const roomState = new RoomStateStore(mockLoggedPlayer);
+export function createStore(player: Player) {
+	const roomStore = new RoomStore(player);
+	roomStore.initMockData();
+	setContext<RoomStore>('roomStore', roomStore);
+}
+
+export function getStore() {
+	return getContext<RoomStore>('roomStore');
+}

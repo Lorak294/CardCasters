@@ -1,8 +1,3 @@
-export enum CardType {
-	Answer,
-	Question
-}
-
 export enum PlayerState {
 	Waiting,
 	Choosing,

@@ -12,15 +12,15 @@
 	<div class="stats">
 		<div class="stat answers">
 			<IconCards font-size="25px" />
-			<p>{deckSummary.questionCardsCount}</p>
+			<p>{deckSummary.answerCardsCount}</p>
 		</div>
 		<div class="stat">
 			<IconCardsOutnline font-size="25px" />
-			<p>{deckSummary.answerCardsCount}</p>
+			<p>{deckSummary.questionCardsCount}</p>
 		</div>
 		<div class="stat">
 			<IconUser font-size="25px" />
-			<p>{deckSummary.answerCardsCount}</p>
+			<p>0</p>
 		</div>
 	</div>
 </div>

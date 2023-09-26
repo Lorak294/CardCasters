@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { roomState } from '../../stores/roomStore';
+	import { getStore } from '$lib/stores/RoomStore';
 	import OwnCard from './OwnCard.svelte';
 
 	export let windowSize: number;
-	let ownCards = roomState.ownCardsStore;
+
+	const roomStore = getStore();
+	let ownCards = roomStore.ownCardsStore;
 	let startIdx = 0;
 
 	function next_handler() {

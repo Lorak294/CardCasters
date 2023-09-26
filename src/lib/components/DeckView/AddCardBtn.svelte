@@ -1,32 +1,18 @@
 <script lang="ts">
-	import { CardType } from '../../common';
 	import IconPlus from '~icons/ic/baseline-plus';
-	import { deckState } from '../../stores/deckStore';
+	import { getStore } from '../../stores/NewDeckStore';
 
-	export let type: CardType;
+	export let answer: boolean;
 
-	let { newCard } = deckState;
-	let cardTypeStr: string;
-
-	switch (type) {
-		case CardType.Answer:
-			cardTypeStr = 'answer';
-			break;
-		case CardType.Question:
-			cardTypeStr = 'question';
-			break;
-		default:
-			cardTypeStr = '';
-			break;
-	}
+	const newDeckStore = getStore();
 
 	function addHandler() {
-		deckState.createNewCard(type);
+		newDeckStore.createNewCard(answer);
 	}
 </script>
 
 <button class="addBtn" on:click={addHandler}>
-	<div>Add new {cardTypeStr}</div>
+	<div>Add new {answer ? 'answer' : 'question'}</div>
 	<div class="icon-wrapper"><IconPlus /></div>
 </button>
 

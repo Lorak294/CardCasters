@@ -1,5 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
+
 declare global {
 	namespace App {
 		// interface Error {}
@@ -14,7 +15,7 @@ declare global {
 interface Card {
 	id: number;
 	text: string;
-	type: CardType;
+	isAnswer: boolean;
 }
 
 interface Player {
@@ -33,11 +34,14 @@ interface Answer {
 interface User {
 	id: number;
 	name: string;
+	email: string;
 }
 
 interface Deck {
 	id: number;
-	creator: User;
+	createdAt: Date;
+	updatedAt: Date;
+	author: User;
 	name: string;
 	code: string;
 	answerCards: Card[];

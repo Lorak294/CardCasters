@@ -1,31 +1,24 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import IconEdit from '~icons/ic/baseline-edit';
-	import { CardType } from '../../common';
-	import { deckState } from '../../stores/deckStore';
 	export let card: Card;
+	export let selectedCard: Card | undefined;
 
-	let { selectedCard } = deckState;
+	const dispatch = createEventDispatcher();
 
 	let styling = '';
 
 	$: {
-		if ($selectedCard && $selectedCard === card) styling = 'selected';
+		if (selectedCard && selectedCard === card) styling = 'selected';
 		else {
-			switch (card.type) {
-				case CardType.Answer:
-					styling = 'answer';
-					break;
-				case CardType.Question:
-					styling = 'question';
-					break;
-			}
+			styling = card.isAnswer ? 'answer' : 'question';
 		}
 	}
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="container {styling}" on:click={() => deckState.selectCard(card)}>
+<div class="container {styling}" on:click={() => dispatch('card-selection', card)}>
 	<p>{card.text}</p>
 	<div class="icon-wrapper">
 		<IconEdit style="align-self: center; font-size: large;" />

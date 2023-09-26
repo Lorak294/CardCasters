@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { PlayerState } from '../../common';
+	import { PlayerState } from '../../../common';
 
 	export let player: Player;
-	let avatarimg = 'images/avatar.jpg';
 
 	function getStateString(state: PlayerState) {
 		switch (state) {

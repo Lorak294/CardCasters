@@ -1,22 +1,19 @@
 <script lang="ts">
-	import PlayerCard from './PlayerCard.svelte';
-	import { roomState } from '../../stores/roomStore';
+	import CardListing from './CardListing.svelte';
 
-	let players = roomState.playersStore;
+	export let cards: Card[];
 </script>
 
 <div class="container">
 	<div class="contents">
-		{#each $players as player, i}
-			<PlayerCard {player} />
+		{#each cards as card, i}
+			<CardListing {card} />
 		{/each}
 	</div>
 </div>
 
 <style>
 	.container {
-		display: grid;
-		grid-template-rows: 70px 1fr 70px;
 		width: 100%;
 		height: 100%;
 		box-sizing: border-box;
@@ -26,6 +23,7 @@
 		padding: 10px;
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		gap: 10px;
 	}
 </style>
