@@ -6,10 +6,6 @@
 	export let form: ActionData;
 </script>
 
-<pre>
-	{JSON.stringify(form, null, 2)}
-</pre>
-
 <div class="container">
 	<form class="form" method="POST" action="?/createDeck" use:enhance>
 		<h1>Create new deck</h1>
