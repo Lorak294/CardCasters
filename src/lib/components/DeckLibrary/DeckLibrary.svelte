@@ -13,12 +13,24 @@
 	</div>
 	<div class="decks">
 		{#each deckSummaries as deckSummary (deckSummary.id)}
-			<DeckWidget {deckSummary} />
+			<a href="/decks/{deckSummary.id}">
+				<DeckWidget {deckSummary} />
+			</a>
 		{/each}
 	</div>
 </div>
 
 <style>
+	a {
+		text-decoration: none;
+		color: inherit;
+
+		&:visited {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+
 	.container {
 		display: flex;
 		flex-direction: column;
