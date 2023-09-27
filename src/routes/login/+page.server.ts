@@ -2,6 +2,20 @@ import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { auth } from '$lib/server/lucia';
 import { LuciaError } from 'lucia';
+import { ZodError, z } from 'zod';
+
+const loginSchema = z.object({
+	email: z
+		.string({ required_error: 'required' })
+		.min(1, { message: 'required' })
+		.max(64, { message: 'must be less than 64 characters long' })
+		.email({ message: 'must be a valid email address' }),
+	password: z
+		.string({ required_error: 'required' })
+		.min(8, { message: 'must be at least 8 characters long' })
+		.max(64, { message: 'must be less than 64 characters long' })
+		.trim()
+});
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect users with valid session to the homepage
@@ -14,12 +28,19 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
-		const { email, password } = Object.fromEntries(await request.formData()) as Record<
-			string,
-			string
-		>;
+		const formDataObj = Object.fromEntries(await request.formData()) as Record<string, string>;
+		const { email, password } = formDataObj;
 
-		// ADD validation
+		// validation
+		try {
+			const res = loginSchema.parse(formDataObj);
+		} catch (err) {
+			const { password, ...rest } = formDataObj;
+			return {
+				messeage: 'invalid credentials',
+				data: rest
+			};
+		}
 
 		try {
 			// find user by key and validate password
@@ -37,10 +58,10 @@ export const actions: Actions = {
 				(err.message === 'AUTH_INVALID_KEY_ID' || err.message === 'AUTH_INVALID_PASSWORD')
 			) {
 				// user does not exist or invallid password
-				return fail(400, { messeage: 'Incorrect email or password' });
+				return fail(400, { messeage: 'invalid credentials' });
 			}
 			// unknown error
-			return fail(500, { messeage: 'An unknown error has occured' });
+			return fail(500, { messeage: 'an unknown error has occured' });
 		}
 
 		// redirect after sucessful login

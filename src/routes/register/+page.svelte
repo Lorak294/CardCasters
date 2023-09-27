@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { error } from '@sveltejs/kit';
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
@@ -10,21 +11,61 @@
 		<form class="register-form" method="POST" use:enhance>
 			<h1 class="title">Register</h1>
 
-			<label for="email">Email</label>
-			<input type="email" name="email" required />
+			<div class="input-with-labels">
+				<label for="email">Email</label>
+				<input
+					type="email"
+					name="email"
+					value={form?.data?.email ?? ''}
+					class:input-error={form?.errors?.email}
+				/>
+				{#if form?.errors?.email}
+					<label for="email" class="error-label">
+						{form.errors.email.join(', ')}
+					</label>
+				{/if}
+			</div>
 
-			<label for="username">Username</label>
-			<input type="text" name="username" required />
+			<div class="input-with-labels">
+				<label for="username">Username</label>
+				<input
+					type="text"
+					name="username"
+					value={form?.data?.username ?? ''}
+					class:input-error={form?.errors?.username}
+				/>
+				{#if form?.errors?.username}
+					<label for="username" class="error-label">
+						{form.errors.username.join(', ')}
+					</label>
+				{/if}
+			</div>
 
-			<label for="password">Password</label>
-			<input type="password" name="password" required />
+			<div class="input-with-labels">
+				<label for="password">Password</label>
+				<input type="password" name="password" class:input-error={form?.errors?.password} />
+				{#if form?.errors?.password}
+					<label for="password" class="error-label">
+						{form.errors.password.join(', ')}
+					</label>
+				{/if}
+			</div>
+
+			<div class="input-with-labels">
+				<label for="passwordConfirm">Confirm password</label>
+				<input
+					type="password"
+					name="passwordConfirm"
+					class:input-error={form?.errors?.passwordConfirm}
+				/>
+				{#if form?.errors?.passwordConfirm}
+					<label for="passwordConfirm" class="error-label">
+						{form.errors.passwordConfirm.join(', ')}
+					</label>
+				{/if}
+			</div>
+
 			<button type="submit">Register</button>
-
-			{#if form?.messeage}
-				<div class="error">
-					<p>{form?.messeage}</p>
-				</div>
-			{/if}
 		</form>
 		<div class="link">
 			<p>Already have an account?</p>
@@ -34,20 +75,23 @@
 </div>
 
 <style>
-	.error {
+	.error-label {
 		color: var(--cancel);
 		text-shadow: var(--shadow);
+	}
+
+	.register-form {
 		display: flex;
-		justify-content: center;
-		margin-top: 10px;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
 	}
 
 	.container {
 		width: 100%;
-		height: 100vh;
 		display: flex;
 		justify-content: center;
-		padding: 10vh;
+		padding: 5vh;
 		background-image: url('/mesh.png');
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -86,8 +130,15 @@
 		text-shadow: var(--shadow);
 	}
 
+	.input-with-labels {
+		margin-bottom: 10px;
+		min-height: 6em;
+	}
+	.input-error {
+		outline: 2px solid var(--cancel);
+	}
+
 	form input {
-		margin-bottom: 25px;
 		font-size: larger;
 		border-radius: 10px;
 		padding: 10px;
@@ -96,7 +147,11 @@
 		display: inline-block;
 		box-sizing: border-box;
 		width: 100%;
-		margin-top: 5px;
+		margin: 5px 0;
+
+		&:focus {
+			outline: none;
+		}
 	}
 
 	form button {
@@ -115,9 +170,5 @@
 			transform: scale(1.03);
 			transition: 0.2s;
 		}
-	}
-
-	form label {
-		text-shadow: var(--shadow);
 	}
 </style>
