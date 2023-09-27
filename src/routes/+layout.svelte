@@ -44,6 +44,12 @@
 	a {
 		color: var(--main1);
 		text-decoration: none;
+		&:hover {
+			transform: scale(1.1);
+			color: var(--active);
+			text-shadow: var(--shadowlight);
+			transition: 0.2s;
+		}
 	}
 
 	.logged-user {

@@ -72,7 +72,9 @@
 		color: var(--active);
 		font-weight: bold;
 		&:hover {
+			transform: scale(1.1);
 			color: var(--secondary1);
+			text-shadow: var(--shadowlight);
 			transition: 0.2s;
 		}
 	}
