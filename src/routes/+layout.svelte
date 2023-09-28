@@ -13,7 +13,7 @@
 
 	{#if data.user}
 		<!-- logged user navigation -->
-		<a href="/room">Room</a>
+		<a href="/play">Play</a>
 		<a href="/decks/browse">Decks</a>
 		<a href="/decks/newdeck">New Deck</a>
 		<a class="logged-user" href="/profile">
