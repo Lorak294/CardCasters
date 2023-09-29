@@ -26,7 +26,8 @@
 		"eslint-plugin-svelte": "^2.30.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
-		"prisma": "^5.2.0",
+		"prisma": "^5.3.1",
+		"supabase": "^1.99.5",
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.4.3",
 		"tslib": "^2.4.1",
@@ -36,10 +37,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@lucia-auth/adapter-prisma": "^3.0.1",
-		"@prisma/client": "^5.2.0",
+		"@prisma/client": "^5.3.1",
+		"@supabase/auth-helpers-sveltekit": "^0.10.3",
+		"@supabase/supabase-js": "^2.37.0",
 		"colyseus.js": "^0.15.14",
-		"lucia": "^2.7.0",
 		"zod": "^3.22.2",
 		"zod-form-data": "^2.0.1"
 	}

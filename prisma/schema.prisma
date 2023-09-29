@@ -1,59 +1,34 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model User {
-  id            String @id @unique @default(uuid())
-  email         String @unique
-  username      String @unique
-
-  decks         Deck[]
-  auth_session  Session[]
-  key           Key[]
-}
-
-model Session {
-  id             String @id @unique
-  user_id        String
-  active_expires BigInt
-  idle_expires   BigInt
-  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
-}
-
-model Key {
-  id              String  @id @unique
-  hashed_password String?
-  user_id         String
-  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
+model Profile {
+  id    String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name  String
+  email String
+  avatar_url String
+  decks Deck[]
 }
 
 model Deck {
-  id String @id @default(uuid())
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name String
-  cards Card[]
-  author User @relation(fields: [authorId], references: [id])
-  authorId String
+  name      String
+  author_id String   @db.Uuid
+  cards     Card[]
+  author    Profile  @relation(fields: [author_id], references: [id])
 }
 
 model Card {
-  id String @id @default(uuid())
-  text String
+  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  text     String
   isAnswer Boolean
-  deck Deck @relation(fields: [deckId], references: [id])
-  deckId String
+  deck_id  String  @db.Uuid
+  deck     Deck    @relation(fields: [deck_id], references: [id])
 }

@@ -1,4 +1,4 @@
-import db from '$lib/database';
+//import db from '$lib/database';
 import { fail, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
@@ -16,13 +16,13 @@ export const actions: Actions = {
 		}
 		// ADD : check if authorID is userID
 
-		const newCard = await db.card.create({
-			data: {
-				deckId,
-				isAnswer: isAnswerNum > 0,
-				text: cardText
-			}
-		});
+		// const newCard = await db.card.create({
+		// 	data: {
+		// 		deckId,
+		// 		isAnswer: isAnswerNum > 0,
+		// 		text: cardText
+		// 	}
+		// });
 
 		return { success: true, data: Object.fromEntries(formData) };
 	},
@@ -41,15 +41,15 @@ export const actions: Actions = {
 		}
 		// ! ADD : check if authorID is userID
 
-		const newCard = await db.card.update({
-			where: {
-				id: cardId,
-				deckId: deckId
-			},
-			data: {
-				text: cardText
-			}
-		});
+		// const newCard = await db.card.update({
+		// 	where: {
+		// 		id: cardId,
+		// 		deckId: deckId
+		// 	},
+		// 	data: {
+		// 		text: cardText
+		// 	}
+		// });
 
 		return { success: true, data: Object.fromEntries(formData) };
 	},
@@ -66,12 +66,12 @@ export const actions: Actions = {
 		}
 		// ! ADD : check if authorID is userID
 
-		const deletedCard = await db.card.delete({
-			where: {
-				id: cardId,
-				deckId: deckId
-			}
-		});
+		// const deletedCard = await db.card.delete({
+		// 	where: {
+		// 		id: cardId,
+		// 		deckId: deckId
+		// 	}
+		// });
 
 		return { success: true };
 	}

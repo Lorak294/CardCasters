@@ -2,7 +2,7 @@ import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { auth } from '$lib/server/lucia';
 import { LuciaError } from 'lucia';
-import { ZodError, z } from 'zod';
+import { z } from 'zod';
 
 const loginSchema = z.object({
 	email: z
@@ -19,10 +19,10 @@ const loginSchema = z.object({
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect users with valid session to the homepage
-	const session = await locals.auth.validate();
-	if (session) {
-		throw redirect(302, '/');
-	}
+	// const session = await locals.auth.validate();
+	// if (session) {
+	// 	throw redirect(302, '/');
+	// }
 	return {};
 };
 
