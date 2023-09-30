@@ -14,6 +14,7 @@ model User {
   id            String @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
   email         String @unique
   username      String @unique
+  avatar_url    String @default("https://i1.sndcdn.com/artworks-9FZMn17FAwx0RbQc-ZzMwVw-t500x500.jpg")
 
   decks         Deck[]
   auth_session  Session[]
@@ -22,7 +23,7 @@ model User {
 
 model Session {
   id             String @id @unique
-  user_id        String
+  user_id        String @db.Uuid
   active_expires BigInt
   idle_expires   BigInt
   user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
@@ -33,27 +34,27 @@ model Session {
 model Key {
   id              String  @id @unique
   hashed_password String?
-  user_id         String
+  user_id         String  @db.Uuid
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
 }
 
 model Deck {
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
+  id String @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  createdAt DateTime @default(dbgenerated("now()"))
   updatedAt DateTime @updatedAt
 
   name String
   cards Card[]
   author User @relation(fields: [authorId], references: [id])
-  authorId String
+  authorId String @db.Uuid
 }
 
 model Card {
-  id String @id @default(uuid())
+  id String @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
   text String
   isAnswer Boolean
   deck Deck @relation(fields: [deckId], references: [id])
-  deckId String
+  deckId String @db.Uuid
 }
