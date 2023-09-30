@@ -73,6 +73,7 @@ export const actions: Actions = {
 		// creating new user record
 		try {
 			await auth.createUser({
+				userId: undefined,
 				key: {
 					providerId: 'email', // auth method
 					providerUserId: email, // unique id for email auth method
