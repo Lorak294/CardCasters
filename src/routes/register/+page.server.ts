@@ -1,6 +1,5 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { auth } from '$lib/server/lucia';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { ZodError, z } from 'zod';
 
@@ -44,7 +43,7 @@ const registerSchema = z
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect users with valid session to the homepage
-	const session = await locals.auth.validate();
+	const session = await locals.getSession();
 	if (session) {
 		throw redirect(302, '/');
 	}

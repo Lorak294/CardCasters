@@ -1,7 +1,5 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { auth } from '$lib/server/lucia';
-import { LuciaError } from 'lucia';
 import { ZodError, z } from 'zod';
 
 const loginSchema = z.object({
