@@ -22,7 +22,7 @@
 
 	function createNewCard(isAnswer: boolean) {
 		newCard = {
-			id: -1,
+			id: 'newid',
 			text: 'new card',
 			isAnswer
 		};
@@ -50,7 +50,7 @@
 		<div class="deck-name-form">
 			<div class="deck-info">
 				<input id="deckNameInput" type="text" name="deckName" value={data.deck.name} />
-				<p>Author: {data.deck.author.name}</p>
+				<p>Author: {data.deck.author.username}</p>
 				<p>Code: {data.deck.code}</p>
 			</div>
 			<div style="padding: 10px; height 100%">

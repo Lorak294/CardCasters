@@ -6,32 +6,55 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  name String @unique
-  decks Deck[]
+  id            String @id @unique @default(uuid())
+  email         String @unique
+  username      String @unique
+  avatar_url    String @default("https://i1.sndcdn.com/artworks-9FZMn17FAwx0RbQc-ZzMwVw-t500x500.jpg")
+
+  decks         Deck[]
+  auth_session  Session[]
+  key           Key[]
+}
+
+model Session {
+  id             String @id @unique
+  user_id        String 
+  active_expires BigInt
+  idle_expires   BigInt
+  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model Key {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String  
+  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
 }
 
 model Deck {
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  id String @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  createdAt DateTime @default(dbgenerated("now()"))
   updatedAt DateTime @updatedAt
 
   name String
   cards Card[]
   author User @relation(fields: [authorId], references: [id])
-  authorId Int
+  authorId String 
 }
 
 model Card {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
   text String
   isAnswer Boolean
   deck Deck @relation(fields: [deckId], references: [id])
-  deckId Int
+  deckId String @db.Uuid
 }

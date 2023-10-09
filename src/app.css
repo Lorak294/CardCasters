@@ -6,9 +6,10 @@
 	--main1: #fcfefe;
 	--active: #339989;
 	--success: #5db855;
-	--cancel: #aa0000;
+	--cancel: #f5a134;
 	--disabled: #727272;
 	--shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+	--shadowlight: rgba(255, 255, 255, 0.253) 0px 5px 15px;
 }
 
 body {

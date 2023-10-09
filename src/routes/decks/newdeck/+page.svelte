@@ -9,7 +9,7 @@
 <div class="container">
 	<form class="form" method="POST" action="?/createDeck" use:enhance>
 		<h1>Create new deck</h1>
-		<input type="hidden" name="authorId" value={data.user.id} />
+		<input type="hidden" name="authorId" value={data.user?.userId} />
 		<div>
 			<label for="deckName">Deck name</label>
 			<input type="text" name="deckName" />

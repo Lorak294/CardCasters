@@ -7,7 +7,7 @@
 
 <div class="container">
 	<h1>{deckSummary.name}</h1>
-	<p>author: {deckSummary.creator.name}</p>
+	<p>author: {deckSummary.creator.username}</p>
 	<p>deck code: {deckSummary.code}</p>
 	<div class="stats">
 		<div class="stat answers">
