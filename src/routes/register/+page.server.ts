@@ -51,7 +51,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals, url }) => {
 		const formDataObj = Object.fromEntries(await request.formData()) as Record<string, string>;
 		const { email, username, password } = formDataObj;
 
@@ -70,34 +70,25 @@ export const actions: Actions = {
 		}
 
 		// creating new user record
-		try {
-			await auth.createUser({
-				userId: undefined,
-				key: {
-					providerId: 'email', // auth method
-					providerUserId: email, // unique id for email auth method
-					password // hashed by Lucia
-				},
-				attributes: {
-					username,
-					email
-				}
-			});
-		} catch (err) {
-			console.log(err);
-
-			// MAY BE WRONG
-			if (
-				err instanceof
-				PrismaClientKnownRequestError /* && e.message === USER_TABLE_UNIQUE_CONSTRAINT_ERROR */
-			) {
-				return fail(400, {
-					messeage: 'There is already an account for this email address or with this username.'
-				});
+		const { error } = await locals.supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				emailRedirectTo: `${url.origin}/auth/callback`
 			}
+		});
 
-			return fail(400, { messeage: 'Could not register user' });
+		if (error) {
+			return fail(500, {
+				messeage: 'Server error, please try again later.',
+				success: false,
+				email
+			});
 		}
-		throw redirect(302, '/login');
+
+		return {
+			messeage: 'Please check your email for a link to log into the website.',
+			success: true
+		};
 	}
 };
