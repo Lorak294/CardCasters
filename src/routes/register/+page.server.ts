@@ -1,7 +1,7 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { ZodError, z } from 'zod';
+import { AuthApiError } from '@supabase/supabase-js';
 
 const registerSchema = z
 	.object({
@@ -51,7 +51,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals, url }) => {
+	register: async ({ request, locals, url }) => {
 		const formDataObj = Object.fromEntries(await request.formData()) as Record<string, string>;
 		const { email, username, password } = formDataObj;
 
@@ -70,25 +70,25 @@ export const actions: Actions = {
 		}
 
 		// creating new user record
-		const { error } = await locals.supabase.auth.signUp({
+		const { data, error: err } = await locals.supabase.auth.signUp({
 			email,
-			password,
-			options: {
-				emailRedirectTo: `${url.origin}/auth/callback`
-			}
+			password
+			// options: {
+			// 	emailRedirectTo: `${url.origin}/auth/callback`
+			// }
 		});
 
-		if (error) {
+		if (err) {
+			if (err instanceof AuthApiError && err.status === 400) {
+				return fail(400, {
+					messeage: 'invalid email or password.'
+				});
+			}
 			return fail(500, {
-				messeage: 'Server error, please try again later.',
-				success: false,
-				email
+				messeage: 'Server error, please try again later.'
 			});
 		}
 
-		return {
-			messeage: 'Please check your email for a link to log into the website.',
-			success: true
-		};
+		throw redirect(303, '/');
 	}
 };

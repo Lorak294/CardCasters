@@ -1,4 +1,4 @@
-import db from '$lib/database';
+import db from '$lib/database/database';
 import { fail, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {

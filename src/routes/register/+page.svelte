@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { error } from '@sveltejs/kit';
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData;
 </script>
 
 <div class="container">
 	<div class="widget">
-		<form class="register-form" method="POST" use:enhance>
+		<form action="?/register" class="register-form" method="POST" use:enhance>
 			<h1 class="title">Register</h1>
 
 			<div class="input-with-labels">

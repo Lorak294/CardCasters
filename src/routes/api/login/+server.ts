@@ -1,4 +1,4 @@
-import db from '$lib/database';
+import db from '$lib/database/database';
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 

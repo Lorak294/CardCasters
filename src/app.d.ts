@@ -2,7 +2,7 @@
 // for information about these interfaces
 
 import type { Session, SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from './database/types';
+import type { Database } from './lib/database/types';
 
 //import type { Validate, ValidateUser, SetSession } from '@lucia-auth/sveltekit';
 
@@ -19,50 +19,3 @@ declare global {
 		// interface Platform {}
 	}
 }
-
-// export {};
-
-// interface Card {
-// 	id: string;
-// 	text: string;
-// 	isAnswer: boolean;
-// }
-
-// interface Player {
-// 	id: number;
-// 	name: string;
-// 	score: number;
-// 	state: PlayerState;
-// 	role: PlayerRole;
-// }
-
-// interface Answer {
-// 	submiter: Player;
-// 	card: Card;
-// }
-
-// interface User {
-// 	id: string;
-// 	username: string;
-// 	email: string;
-// }
-
-// interface Deck {
-// 	id: string;
-// 	createdAt: Date;
-// 	updatedAt: Date;
-// 	author: User;
-// 	name: string;
-// 	code: string;
-// 	answerCards: Card[];
-// 	questionCards: Card[];
-// }
-
-// interface DeckSummary {
-// 	id: string;
-// 	creator: User;
-// 	name: string;
-// 	code: string;
-// 	answerCardsCount: number;
-// 	questionCardsCount: number;
-// }
