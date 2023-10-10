@@ -6,7 +6,7 @@
 
 {#if data.session}
 	<h1>Welcome {data.session.user.email}!</h1>
-	<form action="/logout" method="post">
+	<form action="/api/logout" method="post">
 		<button type="submit">Logout</button>
 	</form>
 {:else}
