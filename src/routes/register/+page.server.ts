@@ -1,7 +1,7 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { ZodError, z } from 'zod';
-import { AuthApiError } from '@supabase/supabase-js';
+import { AuthApiError, SupabaseClient } from '@supabase/supabase-js';
 
 const registerSchema = z
 	.object({
@@ -50,45 +50,86 @@ export const load: PageServerLoad = async ({ locals }) => {
 	return {};
 };
 
+async function checkIfUsernameTaken(sb: SupabaseClient, username: string) {
+	const { count, error: err } = await sb
+		.from('profiles')
+		.select('*', { count: 'exact', head: true })
+		.eq('username', username);
+
+	if (count === null || err) {
+		throw 'db error';
+	}
+	return count > 0;
+}
+
+function username_error(message: string) {
+	return { username: [message] } as {
+		[x: string]: string[] | undefined;
+		[x: number]: string[] | undefined;
+		[x: symbol]: string[] | undefined;
+	};
+}
+
 export const actions: Actions = {
 	register: async ({ request, locals, url }) => {
 		const formDataObj = Object.fromEntries(await request.formData()) as Record<string, string>;
 		const { email, username, password } = formDataObj;
+		const returnData = { email, username };
 
 		// validation
 		try {
 			const res = registerSchema.parse(formDataObj);
-			console.log('success');
-			console.log(res);
+			console.log('validation success');
 		} catch (err) {
 			const { fieldErrors: errors } = (err as ZodError).flatten();
-			const { password, passwordConfirm, ...rest } = formDataObj;
+			console.log(errors);
 			return {
-				data: rest,
+				data: returnData,
 				errors
 			};
 		}
 
+		// check if username is taken
+		try {
+			if (await checkIfUsernameTaken(locals.supabase, username)) {
+				return fail(500, {
+					data: returnData,
+					errors: username_error('username already taken')
+				});
+			}
+		} catch (err) {
+			return fail(500, {
+				data: returnData,
+				messeage: 'Server error, please try again later.'
+			});
+		}
+		console.log('username check success');
+
 		// creating new user record
 		const { data, error: err } = await locals.supabase.auth.signUp({
 			email,
-			password
-			// options: {
-			// 	emailRedirectTo: `${url.origin}/auth/callback`
-			// }
+			password,
+			options: {
+				data: {
+					username
+				},
+				emailRedirectTo: `${url.origin}/auth/callback`
+			}
 		});
 
 		if (err) {
 			if (err instanceof AuthApiError && err.status === 400) {
 				return fail(400, {
+					data: returnData,
 					messeage: 'invalid email or password.'
 				});
 			}
 			return fail(500, {
+				data: returnData,
 				messeage: 'Server error, please try again later.'
 			});
 		}
-
-		throw redirect(303, '/');
+		console.log('sign in success');
+		throw redirect(303, '/register/confirm');
 	}
 };
