@@ -8,7 +8,7 @@
 
 <div class="container">
 	<div class="widget">
-		<form method="post" use:enhance>
+		<form action="?/login" method="post" use:enhance>
 			<h1 class="title">Sign in</h1>
 
 			<label for="email">Email</label>

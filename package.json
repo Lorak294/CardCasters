@@ -38,6 +38,10 @@
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^3.0.1",
 		"@prisma/client": "^5.2.0",
+		"@supabase/auth-helpers-sveltekit": "^0.10.3",
+		"@supabase/auth-ui-shared": "^0.1.7",
+		"@supabase/auth-ui-svelte": "^0.2.6",
+		"@supabase/supabase-js": "^2.38.0",
 		"colyseus.js": "^0.15.14",
 		"lucia": "^2.7.0",
 		"zod": "^3.22.2",

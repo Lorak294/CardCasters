@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
-import db from '$lib/database';
+import db from '$lib/database/database';
 
 function getDeckCountFromQuery(deckId: string, queryRes: any[]): number {
 	let record = queryRes.find((r) => r.id === deckId);
