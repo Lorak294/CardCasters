@@ -1,8 +1,7 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { auth } from '$lib/server/lucia';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { ZodError, z } from 'zod';
+import { AuthApiError, SupabaseClient } from '@supabase/supabase-js';
 
 const registerSchema = z
 	.object({
@@ -44,61 +43,93 @@ const registerSchema = z
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect users with valid session to the homepage
-	const session = await locals.auth.validate();
+	const session = await locals.getSession();
 	if (session) {
 		throw redirect(302, '/');
 	}
 	return {};
 };
 
+async function checkIfUsernameTaken(sb: SupabaseClient, username: string) {
+	const { count, error: err } = await sb
+		.from('profiles')
+		.select('*', { count: 'exact', head: true })
+		.eq('username', username);
+
+	if (count === null || err) {
+		throw 'db error';
+	}
+	return count > 0;
+}
+
+function username_error(message: string) {
+	return { username: [message] } as {
+		[x: string]: string[] | undefined;
+		[x: number]: string[] | undefined;
+		[x: symbol]: string[] | undefined;
+	};
+}
+
 export const actions: Actions = {
-	default: async ({ request }) => {
+	register: async ({ request, locals, url }) => {
 		const formDataObj = Object.fromEntries(await request.formData()) as Record<string, string>;
 		const { email, username, password } = formDataObj;
+		const returnData = { email, username };
 
 		// validation
 		try {
 			const res = registerSchema.parse(formDataObj);
-			console.log('success');
-			console.log(res);
+			console.log('validation success');
 		} catch (err) {
 			const { fieldErrors: errors } = (err as ZodError).flatten();
-			const { password, passwordConfirm, ...rest } = formDataObj;
+			console.log(errors);
 			return {
-				data: rest,
+				data: returnData,
 				errors
 			};
 		}
 
-		// creating new user record
+		// check if username is taken
 		try {
-			await auth.createUser({
-				userId: undefined,
-				key: {
-					providerId: 'email', // auth method
-					providerUserId: email, // unique id for email auth method
-					password // hashed by Lucia
-				},
-				attributes: {
-					username,
-					email
-				}
-			});
-		} catch (err) {
-			console.log(err);
-
-			// MAY BE WRONG
-			if (
-				err instanceof
-				PrismaClientKnownRequestError /* && e.message === USER_TABLE_UNIQUE_CONSTRAINT_ERROR */
-			) {
-				return fail(400, {
-					messeage: 'There is already an account for this email address or with this username.'
+			if (await checkIfUsernameTaken(locals.supabase, username)) {
+				return fail(500, {
+					data: returnData,
+					errors: username_error('username already taken')
 				});
 			}
-
-			return fail(400, { messeage: 'Could not register user' });
+		} catch (err) {
+			return fail(500, {
+				data: returnData,
+				messeage: 'Server error, please try again later.'
+			});
 		}
-		throw redirect(302, '/login');
+		console.log('username check success');
+
+		// creating new user record
+		const { data, error: err } = await locals.supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				data: {
+					username
+				},
+				emailRedirectTo: `${url.origin}/auth/callback`
+			}
+		});
+
+		if (err) {
+			if (err instanceof AuthApiError && err.status === 400) {
+				return fail(400, {
+					data: returnData,
+					messeage: 'invalid email or password.'
+				});
+			}
+			return fail(500, {
+				data: returnData,
+				messeage: 'Server error, please try again later.'
+			});
+		}
+		console.log('sign in success');
+		throw redirect(303, '/register/confirm');
 	}
 };

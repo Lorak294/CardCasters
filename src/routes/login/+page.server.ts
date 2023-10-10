@@ -1,8 +1,7 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { auth } from '$lib/server/lucia';
-import { LuciaError } from 'lucia';
-import { ZodError, z } from 'zod';
+import { z } from 'zod';
+import { AuthApiError } from '@supabase/supabase-js';
 
 const loginSchema = z.object({
 	email: z
@@ -19,7 +18,7 @@ const loginSchema = z.object({
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// redirect users with valid session to the homepage
-	const session = await locals.auth.validate();
+	const session = await locals.getSession();
 	if (session) {
 		throw redirect(302, '/');
 	}
@@ -27,7 +26,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	login: async ({ request, locals }) => {
 		const formDataObj = Object.fromEntries(await request.formData()) as Record<string, string>;
 		const { email, password } = formDataObj;
 
@@ -42,29 +41,21 @@ export const actions: Actions = {
 			};
 		}
 
-		try {
-			// find user by key and validate password
-			const key = await auth.useKey('email', email, password);
-			// create new session
-			const session = await auth.createSession({
-				userId: key.userId,
-				attributes: {}
-			});
-			// set session in cookie
-			locals.auth.setSession(session);
-		} catch (err) {
-			if (
-				err instanceof LuciaError &&
-				(err.message === 'AUTH_INVALID_KEY_ID' || err.message === 'AUTH_INVALID_PASSWORD')
-			) {
-				// user does not exist or invallid password
-				return fail(400, { messeage: 'invalid credentials' });
+		const { data, error: err } = await locals.supabase.auth.signInWithPassword({
+			email,
+			password
+		});
+
+		if (err) {
+			if (err instanceof AuthApiError && err.status === 400) {
+				return fail(400, {
+					messeage: 'invalid credentials'
+				});
 			}
-			// unknown error
-			return fail(500, { messeage: 'an unknown error has occured' });
+			return fail(500, { message: 'Server error, try again later.' });
 		}
 
 		// redirect after sucessful login
-		throw redirect(302, '/');
+		throw redirect(303, '/');
 	}
 };

@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { error } from '@sveltejs/kit';
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData;
 </script>
 
 <div class="container">
 	<div class="widget">
-		<form class="register-form" method="POST" use:enhance>
+		<form action="?/register" class="register-form" method="POST" use:enhance>
 			<h1 class="title">Register</h1>
 
 			<div class="input-with-labels">
@@ -64,7 +63,13 @@
 					</label>
 				{/if}
 			</div>
-
+			{#if form?.messeage}
+				<div class="centered-content">
+					<p class="error-label">
+						{form.messeage}
+					</p>
+				</div>
+			{/if}
 			<button type="submit">Register</button>
 		</form>
 		<div class="link">
@@ -75,6 +80,10 @@
 </div>
 
 <style>
+	.centered-content {
+		display: flex;
+		justify-content: center;
+	}
 	.error-label {
 		color: var(--cancel);
 		text-shadow: var(--shadow);
