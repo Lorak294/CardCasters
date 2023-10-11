@@ -74,7 +74,7 @@
 		</form>
 		<div class="link">
 			<p>Already have an account?</p>
-			<a href="/login">Sign in</a>
+			<a href="/auth/login">Sign in</a>
 		</div>
 	</div>
 </div>

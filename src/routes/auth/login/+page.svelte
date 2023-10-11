@@ -26,7 +26,7 @@
 		</form>
 		<div class="link">
 			<p>First time here?</p>
-			<a href="/register">Create an account</a>
+			<a href="/auth/register">Create an account</a>
 		</div>
 	</div>
 </div>
