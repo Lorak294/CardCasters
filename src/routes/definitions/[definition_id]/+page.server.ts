@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
@@ -29,8 +29,6 @@ async function fetchCurrentVoteForUser(
 		.eq('user_id', user_id)
 		.single();
 
-	console.log(data);
-
 	if (err) return 0;
 	if (!data) return 0;
 	return data.vote_score as number;
@@ -55,5 +53,28 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		return { definition, author, current_vote };
 	} catch (err) {
 		throw error(404, { message: (err as Error).message });
+	}
+};
+
+export const actions: Actions = {
+	vote: async ({ locals, request }) => {
+		const formObjData = Object.fromEntries(await request.formData()) as Record<string, string>;
+		const { definition_id, vote_score } = formObjData;
+
+		const session = await locals.getSession();
+		if (!session) throw error(401, 'In order to vote sign in first.');
+
+		console.log(definition_id);
+
+		const { error: err } = await locals.supabase.from('votes').upsert({
+			definition_id,
+			user_id: session?.user.id,
+			vote_score: parseInt(vote_score)
+		});
+
+		if (err) {
+			console.error(err);
+			throw error(500, 'Server error try again later');
+		}
 	}
 };

@@ -10,11 +10,16 @@
 
 	const vote = (value: number) => {
 		console.log(`voting [${value}]`);
-		dispatch('vote', { value });
+		current_vote = value;
+		setTimeout(() => {
+			dispatch('vote');
+		}, 100);
 	};
 	const reoprt = () => {
 		console.log(`reporting`);
-		dispatch('report');
+		setTimeout(() => {
+			dispatch('report');
+		}, 100);
 	};
 </script>
 
@@ -34,7 +39,7 @@
 		<div class="control-section">
 			<div class="score">
 				<button
-					on:click={() => vote(1)}
+					on:click={() => vote(current_vote <= 0 ? 1 : 0)}
 					class="vote-button up-vote"
 					class:unactive={current_vote === 1}
 				>
@@ -42,7 +47,7 @@
 				</button>
 				<h1>31</h1>
 				<button
-					on:click={() => vote(-1)}
+					on:click={() => vote(current_vote >= 0 ? -1 : 0)}
 					class="vote-button down-vote"
 					class:unactive={current_vote === -1}
 				>
