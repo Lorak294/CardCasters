@@ -57,6 +57,7 @@ async function checkIfUsernameTaken(sb: SupabaseClient, username: string) {
 		.eq('username', username);
 
 	if (count === null || err) {
+		console.log(err);
 		throw 'db error';
 	}
 	return count > 0;
@@ -98,6 +99,7 @@ export const actions: Actions = {
 				});
 			}
 		} catch (err) {
+			console.log(err);
 			return fail(500, {
 				data: returnData,
 				messeage: 'Server error, please try again later.'
@@ -130,6 +132,6 @@ export const actions: Actions = {
 			});
 		}
 		console.log('sign in success');
-		throw redirect(303, '/register/confirm');
+		throw redirect(303, '/auth/register/confirm');
 	}
 };
