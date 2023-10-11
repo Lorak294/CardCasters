@@ -27,17 +27,17 @@
 
 	{#if data.session?.user}
 		<!-- logged user navigation -->
-		<a href="/play">Play</a>
-		<a href="/decks/browse">Decks</a>
-		<a href="/decks/newdeck">New Deck</a>
+		<a href="/definitions">Definitions</a>
+		<a href="/">Home</a>
+		<a href="/about">About</a>
 		<a class="logged-user" href="/profile">
-			<p>{data.session.user}</p>
+			<p>{data.session.user.user_metadata.username}</p>
 			<IconUser style="font-size: 2em" />
 		</a>
 	{:else}
 		<!-- annonymous user navigation -->
-		<a href="/login">Sign in</a>
-		<a href="/register">Register</a>
+		<a href="/auth/login">Sign in</a>
+		<a href="/auth/register">Register</a>
 	{/if}
 </nav>
 
