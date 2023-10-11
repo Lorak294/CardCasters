@@ -17,7 +17,7 @@
 					name="expression"
 					required
 					value={form?.data?.expression ?? ''}
-					class:input-error={form?.errors?.email}
+					class:input-error={form?.errors?.expression}
 				/>
 				{#if form?.errors?.expression}
 					<label for="expression" class="error-label">
@@ -32,7 +32,7 @@
 					name="definition"
 					required
 					value={form?.data?.definition ?? ''}
-					class:input-error={form?.errors?.email}
+					class:input-error={form?.errors?.definition}
 				/>
 				{#if form?.errors?.definition}
 					<label for="definition" class="error-label">
@@ -46,7 +46,7 @@
 					type="text"
 					name="example"
 					value={form?.data?.example ?? ''}
-					class:input-error={form?.errors?.email}
+					class:input-error={form?.errors?.exampl}
 				/>
 				{#if form?.errors?.example}
 					<label for="example" class="error-label">
