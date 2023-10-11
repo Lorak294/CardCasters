@@ -1,5 +1,5 @@
 {
-	"name": "cardcasters",
+	"name": "slanga",
 	"version": "0.0.1",
 	"private": true,
 	"prisma": {
@@ -18,6 +18,7 @@
 		"@iconify-json/ic": "^1.1.14",
 		"@iconify-json/mdi": "^1.1.54",
 		"@sveltejs/adapter-auto": "^2.0.0",
+		"@sveltejs/adapter-vercel": "^3.0.3",
 		"@sveltejs/kit": "^1.20.4",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
@@ -26,7 +27,6 @@
 		"eslint-plugin-svelte": "^2.30.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
-		"prisma": "^5.2.0",
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.4.3",
 		"tslib": "^2.4.1",
@@ -36,14 +36,10 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@lucia-auth/adapter-prisma": "^3.0.1",
-		"@prisma/client": "^5.2.0",
 		"@supabase/auth-helpers-sveltekit": "^0.10.3",
 		"@supabase/auth-ui-shared": "^0.1.7",
 		"@supabase/auth-ui-svelte": "^0.2.6",
 		"@supabase/supabase-js": "^2.38.0",
-		"colyseus.js": "^0.15.14",
-		"lucia": "^2.7.0",
 		"zod": "^3.22.2",
 		"zod-form-data": "^2.0.1"
 	}
