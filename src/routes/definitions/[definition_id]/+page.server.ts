@@ -64,8 +64,6 @@ export const actions: Actions = {
 		const session = await locals.getSession();
 		if (!session) throw error(401, 'In order to vote sign in first.');
 
-		console.log(definition_id);
-
 		const { error: err } = await locals.supabase.from('votes').upsert({
 			definition_id,
 			user_id: session?.user.id,

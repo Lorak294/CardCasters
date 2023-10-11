@@ -9,7 +9,6 @@
 	const dispatch = createEventDispatcher();
 
 	const vote = (value: number) => {
-		console.log(`voting [${value}]`);
 		current_vote = value;
 		setTimeout(() => {
 			dispatch('vote');

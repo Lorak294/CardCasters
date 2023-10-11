@@ -6,7 +6,6 @@
 	let voteForm: HTMLFormElement;
 	let { current_vote, definition, author } = data;
 	// $: ({ current_vote, definition, author } = data);
-	console.log('curr vote:', data.current_vote);
 </script>
 
 <form action="?/vote" method="post" bind:this={voteForm}>
