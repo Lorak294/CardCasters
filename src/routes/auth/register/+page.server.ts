@@ -1,7 +1,7 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { ZodError, z } from 'zod';
-import { AuthApiError, SupabaseClient } from '@supabase/supabase-js';
+import { type ZodError, z } from 'zod';
+import { AuthApiError, type SupabaseClient } from '@supabase/supabase-js';
 
 const registerSchema = z
 	.object({
