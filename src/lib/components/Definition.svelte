@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Defintion, Profile } from '$lib/database/types';
 	import { createEventDispatcher } from 'svelte';
+	import DefinitionData from './DefinitionData.svelte';
 
 	export let definiton: Defintion;
 	export let author: Profile;
@@ -23,19 +24,11 @@
 </script>
 
 <div class="container">
-	<h1>{definiton.expression}</h1>
 	<div class="sections-container">
-		<div class="def-section">
-			<h2>Definition:</h2>
-			<p>{definiton.definition}</p>
-
-			<h2>Example usage:</h2>
-			<p class="example">{definiton.example}</p>
-
+		<DefinitionData definition={definiton} editable={false} />
+		<div class="control-section">
 			<h2>Created by:</h2>
 			<p>{author.username}</p>
-		</div>
-		<div class="control-section">
 			<div class="score">
 				<button
 					on:click={() => vote(current_vote <= 0 ? 1 : 0)}
@@ -68,16 +61,6 @@
 		display: flex;
 		justify-content: space-between;
 		gap: 2em;
-	}
-	.def-section h2 {
-		color: var(--highlight);
-	}
-	.def-section p {
-		padding-left: 1em;
-	}
-
-	.example {
-		font-style: italic;
 	}
 
 	.vote-button {
