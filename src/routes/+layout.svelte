@@ -27,7 +27,7 @@
 
 	{#if data.session?.user}
 		<!-- logged user navigation -->
-		<a href="/definitions">Definitions</a>
+		<a href="/definitions/browse">Definitions</a>
 		<a href="/">Home</a>
 		<a href="/about">About</a>
 		<a class="logged-user" href="/profile">
