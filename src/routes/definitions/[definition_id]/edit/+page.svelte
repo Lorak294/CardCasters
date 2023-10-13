@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Definition from '$lib/components/Definition.svelte';
 	import DefinitionData from '$lib/components/DefinitionData.svelte';
 	import type { PageData } from './$types';
 	export let data: PageData;
@@ -11,8 +10,9 @@
 
 <h1>Defintion Edit page:</h1>
 
-<form>
+<form method="post" action="?/update">
 	<DefinitionData {definition} editable={true} />
+	<button type="submit">Save</button>
 </form>
 
 <style>
